@@ -1,0 +1,17 @@
+.container {
+    /* make element flex-container, 
+    inline-flex will make items go to the left horisontally, 
+    just flex lets them go to center
+    this will make its children flex-items */
+    display        : flex;
+    /* align-items items in column */
+    flex-direction : column;
+    /* center items horizontally */
+    align-items    : center;
+    /* center items vertically */
+    justify-content: center;
+}
+
+mat-card {
+    margin: 50px;
+}

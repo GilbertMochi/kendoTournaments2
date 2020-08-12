@@ -1,0 +1,51 @@
+<div class=container>
+    <!-- all content goes inside this -->
+
+    <!-- Organiser card -->
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{this.language.dashboardText[1]}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{this.language.dashboardText[2]}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <a mat-raised-button color="primary" routerLink="/add-tournaments"
+                [matTooltip]="this.language.dashboardText[3]" aria-label="displays a tooltip">
+                {{this.language.dashboardText[3]}}
+                <mat-icon>create</mat-icon>
+            </a>
+            <a mat-raised-button color="primary" routerLink="/edit-tournaments"
+                [matTooltip]="this.language.dashboardText[4]" aria-label="displays a tooltip">
+                {{this.language.dashboardText[4]}}
+                <mat-icon>settings</mat-icon>
+            </a>
+            <a mat-stroked-button color="primary" routerLink="/add-users" [disabled]="true"
+                [matTooltip]="this.language.dashboardText[5]" aria-label="displays a tooltip">
+                {{this.language.dashboardText[6]}}
+                <mat-icon>face</mat-icon>
+            </a>
+        </mat-card-actions>
+    </mat-card>
+
+    <!-- Referee card -->
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                {{this.language.dashboardText[7]}}
+            </mat-card-title>
+            <mat-card-subtitle>
+                {{this.language.dashboardText[8]}}
+            </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <a mat-raised-button color="primary" routerLink="/referee-overview"
+                [matTooltip]="this.language.dashboardText[9]" aria-label="displays a tooltip">
+                {{this.language.dashboardText[10]}}
+                <mat-icon>exit_to_app</mat-icon>
+            </a>
+        </mat-card-actions>
+    </mat-card>
+</div>

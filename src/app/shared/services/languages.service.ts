@@ -111,16 +111,17 @@ export class LanguagesService {
   }
 
   private getDashboardText() {
-    this.dashboardText.push("Turnausten ylläpito");//0
-    this.dashboardText.push("Turnausten ylläpitäjien toiminnot.");//1
-    this.dashboardText.push("Muokkaa ja lisää turnauksia.");//2
-    this.dashboardText.push("Lisää tuomareita tai muita ylläpitäjiä");//3
-    this.dashboardText.push("Turnaukset");//4
-    this.dashboardText.push("Lisää käyttäjiä");//5
-    this.dashboardText.push("Otteluiden tuomarointi");//6
-    this.dashboardText.push("Tuomaroi otteluita");//7
-    this.dashboardText.push("Siirry valitsemaan turnaus ja ottelu");//8
-    this.dashboardText.push("Siirry");//9
+    this.dashboardText.push("Turnaukset");//0
+    this.dashboardText.push("Turnausten ylläpito");//1
+    this.dashboardText.push("Turnausten ylläpitäjien toiminnot.");//2
+    this.dashboardText.push("Lisää turnauksia");//3
+    this.dashboardText.push("Muokkaa turnauksia");//4
+    this.dashboardText.push("Lisää tuomareita tai muita ylläpitäjiä");//5
+    this.dashboardText.push("Lisää käyttäjiä");//6
+    this.dashboardText.push("Otteluiden tuomarointi");//7
+    this.dashboardText.push("Tuomaroi otteluita");//8
+    this.dashboardText.push("Siirry valitsemaan turnaus ja ottelu");//9
+    this.dashboardText.push("Siirry");//10
   }
 
   private getRefereeText() {
