@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Tournament } from '../interfaces/tournament';
 
 @Injectable({
   providedIn: 'root'
