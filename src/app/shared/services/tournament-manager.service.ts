@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Tournament } from '../interfaces/tournament';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
