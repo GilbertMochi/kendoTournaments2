@@ -1,4 +1,4 @@
-import { PointTypes } from '../shared/PointTypes';
+import { PointTypes } from '../PointTypes';
 
 export interface IPoint {
     date:Date;

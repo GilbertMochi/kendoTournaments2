@@ -1,0 +1,56 @@
+<div *ngIf="!isEdit;else editParticipant">
+    <div class="horisontally">
+        <div class="horisontally">
+            <p>{{this.participant.firstname}}</p>
+            <p>{{this.participant.lastname}}</p>
+            <p>{{this.participant.rank}}</p>
+            <h4>{{this.language.participantsText[11]}}</h4>
+            <p>{{this.participant.wins}}</p>
+            <h4>{{this.language.participantsText[12]}}</h4>
+            <p>{{this.participant.losses}}</p>
+        </div>
+        <button mat-stroked-button color="accent" class="editButton"
+            (click)="isEdit=true;">{{this.language.miscellanousText[0]}}</button>
+    </div>
+</div>
+<ng-template #editParticipant>
+    <div class="editableParticipant">
+        <form [formGroup]="participantForm" (change)="getParticipantValues()">
+            <h3>{{this.language.participantsText[13]}}</h3>
+            <mat-form-field>
+                <mat-label>{{this.language.participantsText[2]}}</mat-label>
+                <input matInput formControlName="firstname" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{this.language.participantsText[5]}}</mat-label>
+                <input matInput formControlName="lastname" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{this.language.participantsText[11]}}</mat-label>
+                <input matInput formControlName="wins" />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>{{this.language.participantsText[12]}}</mat-label>
+                <input matInput formControlName="losses" />
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>{{this.language.participantsText[9]}}</mat-label>
+                <input matInput formControlName="rank" />
+            </mat-form-field>
+
+            <div class="buttons">
+                <button mat-stroked-button color="primary" [disabled]="!canSubmit()"
+                    (click)="saveChanges()">{{this.language.miscellanousText[1]}}</button>
+                <button mat-stroked-button color="accent"
+                    (click)="cancelChanges()">{{this.language.miscellanousText[2]}}</button>
+                <!--delete button-->
+                <button mat-stroked-button color="warn" (click)="deleteThisParticipant()">
+                    {{this.language.miscellanousText[4]}}
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>

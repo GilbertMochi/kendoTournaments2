@@ -1,5 +1,5 @@
 import { Point } from './point';
-import { PointTypes } from '../shared/PointTypes';
+import { PointTypes } from '../PointTypes';
 
 export interface IScore {
     hitScore: number;
@@ -31,7 +31,7 @@ export class Score implements IScore {
         this.faultScore += this.getValueFromType(PointTypes.fault);
     }
 
-    clearFaultScore(){
+    clearFaultScore() {
         this.faultScore = 0;
     }
 

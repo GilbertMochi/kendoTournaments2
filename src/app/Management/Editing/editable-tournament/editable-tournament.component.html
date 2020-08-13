@@ -1,1 +1,141 @@
-<p>editable-tournament works!</p>
+<mat-list>
+    <mat-card *ngIf="!isEdit;else editTournament" class="tournamentNameWithBtn">
+        <mat-card-header>
+            <mat-card-title>{{this.tournament.name}}</mat-card-title>
+            <mat-card-subtitle>{{this.language.miscellanousText[14]}} {{this.tournament.id}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-actions>
+            <button mat-stroked-button color="primary" class="editBtn" (click)="isEdit=true;">
+                {{this.language.miscellanousText[0]}}
+                <mat-icon>create</mat-icon>
+            </button>
+            <button mat-stroked-button color="warn" class="deleteTournamentBtn"
+                (click)="deleteTournament(this.tournament.id)">
+                {{this.language.miscellanousText[4]}}
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+    <ng-template #editTournament>
+        <mat-card>
+            <form [formGroup]="tournamentForm">
+                <mat-card-header>
+                    <mat-card-title>{{this.localTournament.name}}</mat-card-title>
+                    <mat-card-subtitle>{{this.language.miscellanousText[14]}} {{this.localTournament.id}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <!--changing name-->
+                    <div class="formBlock">
+                        <mat-form-field appearance="fill">
+                            <mat-label>{{this.language.miscellanousText[3]}}</mat-label>
+                            <input matInput placeholder="{{this.localTournament.name}}" (change)="getTournamentName()"
+                                formControlName="tournamentname">
+                        </mat-form-field>
+                    </div>
+                    <!--dates and locations-->
+                    <div class="formBlock">
+                        <h2>{{this.language.tournamentDatesText[0]}}</h2>
+                        <mat-list>
+                            <mat-list-item *ngFor="let item of this.localTournament.dates; let i = index">
+                                <div class="dateWithLocationItem">
+
+                                    <p>{{item.location}}</p>
+                                    <p>{{item.dateAsString | date:'fullDate'}}</p>
+                                    <mat-icon class="deleteIcon" (click)="deleteDateWithLocation(i)" color="warn">delete
+                                    </mat-icon>
+                                    <mat-divider></mat-divider>
+
+                                </div>
+                            </mat-list-item>
+                        </mat-list>
+
+                        <h3>{{this.language.tournamentDatesText[1]}}</h3>
+
+                        <mat-form-field appearance="fill">
+                            <!--address-->
+                            <mat-label>{{this.language.tournamentDatesText[2]}}</mat-label>
+                            <input matInput placeholder="{{this.language.tournamentDatesText[2]}}"
+                                formControlName="address">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <!--choose date-->
+                            <mat-label>{{this.language.tournamentDatesText[6]}}</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="date">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+                        <button [disabled]="!canAddDate()" mat-icon-button color="primary" (click)="addDate()">
+                            <mat-icon>add_circle</mat-icon>
+                        </button>
+                    </div>
+                    <!--Participants-->
+                    <div class="formBlock">
+                        <h2>{{this.language.participantsText[0]}}</h2>
+                        <mat-accordion>
+                            <mat-expansion-panel (opened)="participantsPanelOpen = true"
+                                (closed)="participantsPanelOpen = false">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{this.language.participantsText[14]}}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div class="participantItem"
+                                    *ngFor="let item of this.localTournament.participants; let i = index">
+                                    <app-editable-participant [participant]="item"
+                                        (updateParticipant)='updateParticipant($event, i);'
+                                        (deleteParticipant)='deleteParticipant($event, i);'></app-editable-participant>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <h3>{{this.language.participantsText[1]}}</h3>
+
+                        <mat-form-field appearance="fill">
+                            <!--first name-->
+                            <mat-label>{{this.language.participantsText[2]}}</mat-label>
+                            <input matInput placeholder="{{this.language.participantsText[3]}}"
+                                formControlName="firstname">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <!--last name-->
+                            <mat-label>{{this.language.participantsText[5]}}</mat-label>
+                            <input matInput placeholder="{{this.language.participantsText[6]}}"
+                                formControlName="lastname">
+                        </mat-form-field>
+
+                        <mat-form-field appearance="fill">
+                            <!--rank-->
+                            <mat-label>{{this.language.participantsText[8]}}</mat-label>
+                            <input matInput placeholder="{{this.language.participantsText[9]}}" formControlName="rank">
+                        </mat-form-field>
+
+                        <button mat-icon-button color="primary" [disabled]="!canAddParticipant()"
+                            (click)="addParticipant()">
+                            <mat-icon>add_circle</mat-icon>
+                        </button>
+                    </div>                 
+
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" class="add" [disabled]="!this.canSubmit()"
+                        (click)="saveChanges()">
+                        {{this.language.miscellanousText[19]}}
+                        <mat-icon>publish</mat-icon>
+                    </button>
+                    <button mat-raised-button color="warn" class="add" (click)="cancelEdit()">
+                        {{this.language.miscellanousText[2]}}
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-card-actions>
+            </form>
+        </mat-card>
+    </ng-template>
+</mat-list>

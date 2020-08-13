@@ -1,0 +1,37 @@
+.formBlock {
+    border-bottom: 1px solid lightgray;
+    padding      : 10px;
+}
+
+form {
+    margin : 5px;
+    padding: 20px;
+}
+
+button, a {
+    margin: 20px 5px;
+}
+
+.dateWithLocationItem {
+    display: inline-flex;
+    margin : 5px;
+}
+
+.dateWithLocationItem mat-icon {
+    cursor: pointer;
+}
+
+.dateWithLocationItem p {
+    font-size: 15px;
+    margin   : 5px 20px;
+}
+
+li {
+    list-style-type: none;
+    margin         : 5px;
+    font-size      : medium;
+}
+
+mat-form-field {
+    margin-right: 12px;
+}

@@ -48,6 +48,9 @@ export class LanguagesService {
     this.miscellanousText.push("Sijainti:");//17
     this.miscellanousText.push("Henkilöt:");//18
     this.miscellanousText.push("Tallenna muutokset:");//19
+    this.miscellanousText.push("Turnaus lisätty.");//20
+    this.miscellanousText.push("Palauttaa takaisin toiminto näkymään.");//21
+    this.miscellanousText.push("Tallentaa turnauksen tietokantaan.");//22
   }
 
   private getTournamentDatesTexts() {

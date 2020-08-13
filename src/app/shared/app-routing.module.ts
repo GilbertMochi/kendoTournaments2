@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from '../Management/dashboard/dashboard.component';
 import { HomeComponent } from '../home/home.component';
 import { NewTournamentComponent } from '../Management/new-tournament/new-tournament.component';
-import { EditableTournamentComponent } from '../Management/Editing/editable-tournament/editable-tournament.component';
+import { EditTournamentsComponent } from '../Management/Editing/edit-tournaments/edit-tournaments.component';
 
 
 const routes: Routes = [
@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'add-tournaments', component: NewTournamentComponent },
-  { path: 'edit-tournaments', component: EditableTournamentComponent },
+  { path: 'edit-tournaments', component: EditTournamentsComponent },
   // { path: 'referee-overview', component:  },
   // { path: 'referee-match', component:  },
 ];
