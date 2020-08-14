@@ -40,13 +40,12 @@ export class EditableTournamentComponent implements OnInit {
       lastname: [''],
       rank: [''],
       poolname: [''],
+      poolId: [''],
     });
-    console.log('local dates length:' + this.localTournament.dates.length);
     this.resetTournamentForm();
   }
 
   resetTournamentForm() {
-    console.log('resetting form');
     this.tournamentForm.reset();
     this.tournamentForm.get('tournamentname').setValue(this.tournament.name);
   }
@@ -55,6 +54,7 @@ export class EditableTournamentComponent implements OnInit {
     this.tournamentService.updateTournament(this.localTournament);
     this.isEdit = false;
     this.resetTournamentForm();
+    this.openSnackBar(this.language.miscellanousText[23], this.language.miscellanousText[6]);
   }
 
   cancelEdit() {
@@ -197,42 +197,10 @@ export class EditableTournamentComponent implements OnInit {
 
 }
 
-// <!--Pools-->
-// <div class="formBlock">
-//     <h2>{{this.language.poolsText[0]}}</h2>
-//     <mat-accordion>
-//         <mat-expansion-panel (opened)="poolsPanelOpen = true" (closed)="poolsPanelOpen = false">
-//             <mat-expansion-panel-header>
-//                 <mat-panel-title>
-//                     {{this.language.poolsText[5]}}
-//                 </mat-panel-title>
-//                 <mat-panel-description>
-//                 </mat-panel-description>
-//             </mat-expansion-panel-header>
-//             <div class="participantItem"
-//                 *ngFor="let item of this.localTournament.pools; let i = index">
-//                 <app-editable-pool [pool]="item" [tournamentId]="this.tournament.id"
-//                     [participants]="this.localTournament.participants"
-//                     [dates]="this.localTournament.dates" (updatePool)='updatePool($event, i);'>
-//                 </app-editable-pool>
-//                 <button mat-stroked-button color="warn" class="deleteItemBtn"
-//                     (click)="deletePool(i)">
-//                     {{this.language.miscellanousText[4]}}
-//                     <mat-icon>delete</mat-icon>
-//                 </button>
-//             </div>
-//         </mat-expansion-panel>
-//     </mat-accordion>
-
-//     <h3>{{this.language.poolsText[1]}}</h3>
-
-//     <mat-form-field appearance="fill">
-//         <!--pool name-->
-//         <mat-label>{{this.language.poolsText[2]}}</mat-label>
-//         <input matInput placeholder="{{this.language.poolsText[3]}}" formControlName="poolname">
-//     </mat-form-field>
-
-//     <button mat-icon-button color="primary" [disabled]="!canAddPool()" (click)="addPool()">
-//         <mat-icon>add_circle</mat-icon>
-//     </button>
-// </div>
+//cancel changes btn
+/* 
+<button mat-raised-button color="warn" class="add" (click)="cancelEdit()">
+{{this.language.miscellanousText[2]}}
+<mat-icon>cancel</mat-icon>
+</button>
+*/

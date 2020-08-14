@@ -1,0 +1,164 @@
+<mat-accordion>
+    <mat-expansion-panel [expanded]="poolPanelOpen" (opened)="poolPanelOpen = true" (closed)="poolPanelOpen = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <h1>{{this.pool.name}}</h1>
+            </mat-panel-title>
+            <mat-panel-description>
+                <h1>{{this.pool.id}}</h1>
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <button class="editBtn" mat-stroked-button color="accent"
+            (click)="editPool()">{{this.language.miscellanousText[0]}}</button>
+
+        <!--show winners-->
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    {{this.language.poolsText[12]}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <mat-list>
+                        <mat-list-item *ngIf="this.localPool.winner!=null">{{this.language.poolsText[10]}}:
+                            {{this.localPool.winner.firstname}}
+                            {{this.localPool.winner.lastname}} {{this.localPool.winner.rank}}<button mat-icon-button
+                                color="warn" (click)="removeWinner()">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button></mat-list-item>
+                        <mat-list-item *ngIf="this.localPool.second!=null">{{this.language.poolsText[11]}}:
+                            {{this.localPool.second.firstname}}
+                            {{this.localPool.second.lastname}} {{this.localPool.second.rank}}<button mat-icon-button
+                                color="warn" (click)="removeSecond()">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button></mat-list-item>
+                    </mat-list>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content *ngIf="this.localPool.winner==null && this.localPool.second==null">
+                {{this.language.poolsText[16]}}
+            </mat-card-content>
+        </mat-card>
+
+        <!--edit the pool values-->
+        <mat-card *ngIf="isEdit">
+            <mat-card-header>
+                <mat-card-title>
+                    {{this.language.poolsText[8]}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <form [formGroup]="poolForm">
+                        <div class="horisontally">
+                            <mat-form-field>
+                                <mat-label>{{this.language.poolsText[3]}}</mat-label>
+                                <input matInput formControlName="poolname" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-label>{{this.language.poolsText[6]}}</mat-label>
+                                <input matInput formControlName="poolId" />
+                            </mat-form-field>
+                        </div>
+                    </form>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <h2>{{this.language.participantsText[0]}}</h2>
+                <h3>{{this.language.poolsText[9]}}</h3>
+
+                <!--add participants-->
+                <div class="horisontally">
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{this.language.poolsText[13]}}</mat-label>
+                        <mat-select [(value)]="playerToAddToPool">
+                            <mat-option *ngFor="let p of this.participants" [value]="p">
+                                {{p.firstname}} {{p.lastname}} {{p.rank}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <button mat-icon-button color="primary" [disabled]="playerToAddToPool==null"
+                        (click)="addParticipant()">
+                        <mat-icon>add_circle</mat-icon>
+                    </button>
+                </div>
+
+                <h2>{{this.language.poolsText[12]}}</h2>
+                <!--choose winner-->
+                <h3>{{this.language.poolsText[14]}}</h3>
+                <div class="horisontally">
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{this.language.poolsText[13]}}</mat-label>
+                        <mat-select [(value)]="this.localPool.winner">
+                            <mat-option *ngIf="this.localPool.winner!=null" [value]="this.localPool.winner">
+                                {{this.localPool.winner.firstname}} {{this.localPool.winner.lastname}}
+                                {{this.localPool.winner.rank}}
+                            </mat-option>
+                            <mat-option *ngFor="let p of this.localPool.participants" [value]="p">
+                                {{p.firstname}} {{p.lastname}} {{p.rank}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <!--choose second-->
+                <h3>{{this.language.poolsText[15]}}</h3>
+                <div class="horisontally">
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{this.language.poolsText[13]}}</mat-label>
+                        <mat-select [(value)]="this.localPool.second">
+                            <mat-option *ngIf="this.localPool.second!=null" [value]="this.localPool.second">
+                                {{this.localPool.second.firstname}} {{this.localPool.second.lastname}}
+                                {{this.localPool.second.rank}}
+                            </mat-option>
+                            <mat-option *ngFor="let p of this.localPool.participants" [value]="p">
+                                {{p.firstname}} {{p.lastname}} {{p.rank}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <!--button for saving the pool edit-->
+                <button class="editButton" mat-stroked-button color="primary" [disabled]="!canSubmit()"
+                    (click)="saveChanges()">{{this.language.miscellanousText[1]}}</button>
+                <button class="editButton" mat-stroked-button color="warn"
+                    (click)="cancelChanges()">{{this.language.miscellanousText[2]}}</button>
+            </mat-card-actions>
+        </mat-card>
+
+        <!--show list of added participants if there are any-->
+        <mat-accordion>
+            <mat-expansion-panel (opened)="addedParticipantsPanelOpen = true"
+                (closed)="addedParticipantsPanelOpen = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{this.language.participantsText[14]}}
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list *ngIf="this.localPool.participants.length>0">
+                    <mat-list-item *ngFor="let item of this.localPool.participants">
+                        {{item.firstname}} {{item.lastname}} {{item.rank}}
+                    </mat-list-item>
+                </mat-list>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-accordion>
+            <mat-expansion-panel (opened)="matchesPanelOpen = true" (closed)="matchesPanelOpen = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        {{this.language.matchesText[0]}}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <!--editable match-->
+            </mat-expansion-panel>
+        </mat-accordion>
+
+    </mat-expansion-panel>
+</mat-accordion>
+
+<!-- new match -->
+<div class="formGroup">
+    <h3>{{this.language.matchesText[1]}}</h3>
+
+</div>

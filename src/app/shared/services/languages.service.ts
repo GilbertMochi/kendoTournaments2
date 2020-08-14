@@ -51,6 +51,7 @@ export class LanguagesService {
     this.miscellanousText.push("Turnaus lisätty.");//20
     this.miscellanousText.push("Palauttaa takaisin toiminto näkymään.");//21
     this.miscellanousText.push("Tallentaa turnauksen tietokantaan.");//22
+    this.miscellanousText.push("Muutokset tallennettu.");//23
   }
 
   private getTournamentDatesTexts() {
@@ -90,6 +91,15 @@ export class LanguagesService {
     this.poolsText.push("Lisätyt poolit");//5
     this.poolsText.push("Id");//6
     this.poolsText.push("Poolin tunniste/id");//7
+    this.poolsText.push("Poolin tiedot");//8
+    this.poolsText.push("Lisää pooliin osallistuvat kilpailijat");//9
+    this.poolsText.push("Poolin voittaja");//10
+    this.poolsText.push("Poolin toinen");//11
+    this.poolsText.push("Poolin voittajat");//12
+    this.poolsText.push("Kilapilija");//13
+    this.poolsText.push("Valitse voittaja");//14
+    this.poolsText.push("Valitse toinen sija");//15
+    this.poolsText.push("Voittajia ei ole vielä asetettu. Ne asetetaan tuomarin toimesta, kun pooli on ohi. Muussa tapauksessa ne voi asettaa valitsemalla poolin muokkauksen.");//16
   }
 
   private getMatchesText() {

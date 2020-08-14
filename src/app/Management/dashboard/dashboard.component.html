@@ -41,7 +41,7 @@
             </mat-card-subtitle>
         </mat-card-header>
         <mat-card-actions>
-            <a mat-raised-button color="primary" routerLink="/referee-overview"
+            <a mat-raised-button color="primary" [disabled]="true" routerLink="/referee-overview"
                 [matTooltip]="this.language.dashboardText[9]" aria-label="displays a tooltip">
                 {{this.language.dashboardText[10]}}
                 <mat-icon>exit_to_app</mat-icon>

@@ -17,6 +17,7 @@ import { NewTournamentComponent } from './Management/new-tournament/new-tourname
 import { EditTournamentsComponent } from './Management/Editing/edit-tournaments/edit-tournaments.component';
 import { EditableTournamentComponent } from './Management/Editing/editable-tournament/editable-tournament.component';
 import { EditableParticipantComponent } from './Management/Editing/editable-participant/editable-participant.component';
+import { EditablePoolComponent } from './Management/Editing/editable-pool/editable-pool.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { EditableParticipantComponent } from './Management/Editing/editable-part
     EditableTournamentComponent,
     EditTournamentsComponent,
     EditableParticipantComponent,
+    EditablePoolComponent,
   ],
   imports: [
     BrowserModule,
