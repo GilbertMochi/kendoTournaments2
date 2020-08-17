@@ -31,7 +31,14 @@ export class EditablePoolComponent implements OnInit {
   localPool: Pool;
   matches: Match[];
 
+  localMatches:Match[]=[];
+
   poolForm: FormGroup;
+  newMacthForm: FormGroup;
+
+  //twowaybound values for match participants
+  newMatchP1:Participant;
+  newMatchP2:Participant;
 
   constructor(private matchManager: MatchManagerService, public language: LanguagesService, private FB: FormBuilder) { }
 
@@ -51,10 +58,11 @@ export class EditablePoolComponent implements OnInit {
     });
 
     this.localPool = this.pool;
-    this.initialiseForm();
+    this.initialisePoolForm();
+    this.initializeNewMatchForm();
   }
 
-  initialiseForm() {
+  initialisePoolForm() {
     this.poolForm = this.FB.group({
       poolname: ['', Validators.required],
       poolId: ['', Validators.required],
@@ -62,6 +70,14 @@ export class EditablePoolComponent implements OnInit {
 
     this.poolForm.get('poolname').setValue(this.localPool.name);
     this.poolForm.get('poolId').setValue(this.localPool.id);
+  }
+
+  initializeNewMatchForm(){
+    this.newMacthForm=this.FB.group({
+      newMatchLocation: [''],
+      newMatchDateAsISoString: [''],
+      newMatchTime: [''],
+    });
   }
 
   editPool() {
@@ -73,13 +89,15 @@ export class EditablePoolComponent implements OnInit {
     this.getPoolValues();
     this.updatePool.emit(this.localPool);//changes back to parent
     this.isEdit = false;
-    this.initialiseForm();
+    this.initialisePoolForm();
+    this.initializeNewMatchForm();
   }
 
   cancelChanges() {
     this.localPool = this.pool;
     this.isEdit = false;
-    this.initialiseForm();
+    this.initialisePoolForm();
+    this.initializeNewMatchForm();
   }
 
   getPoolValues() {
@@ -109,6 +127,23 @@ export class EditablePoolComponent implements OnInit {
 
     this.localPool.matchesInfo.push({ id: matchId, location: m.location, dateAsIsoString: m.dateAsIsoString });
     this.saveChanges();
+  }
+
+  addLocalMatch(){
+    this.localMatches.push({
+    tournamentId:this.tournamentId,
+    poolId:this.pool.id,
+    participant1: this.newMatchP1,
+    participant2: this.newMatchP2,
+    location: this.newMacthForm.get('newMatchLocation').value,
+    dateAsIsoString: this.newMacthForm.get('newMatchDateAsISoString').value,
+    time: this.newMacthForm.get('newMatchTime').value,//get the time from the date when creating
+    p1Score: null,
+    p2Score: null,
+    winner: null,
+    matchStarted: false,
+    matchOver: false,
+    });
   }
 
   addParticipant() {
