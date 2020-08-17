@@ -1,22 +1,19 @@
 const { app, BrowserWindow } = require('electron')
 var path = require('path')
-let win;
-
+let win=null;
 function createWindow() {
     win = new BrowserWindow({
         titleBarStyle: 'hidden',
         width: 800,
         height: 600,
-        minWidth: 500,
-        minHeight: 500,
         backgroundColor: '#ffffff',
-        icon: `file://${__dirname}/dist/assets/icons/win/logo.ico`
+        // icon: `file://${__dirname}/dist/assets/icons/win/logo.ico`
     })
 
     win.loadFile(`file://${__dirname}/dist/index.html`);
 
     //dev tools
-    //win.webContents.openDevTools();
+    win.webContents.openDevTools();
 
     //when window is closed
     win.on('closed', function () {
@@ -25,7 +22,7 @@ function createWindow() {
 }
 
 //create app on electron initialization
-app.on('ready', createWindow);
+app.when('ready', createWindow);
 
 //quit when all windows are closed
 app.on('window-all-closed', function () {
