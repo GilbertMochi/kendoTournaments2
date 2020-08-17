@@ -1,16 +1,19 @@
 const { app, BrowserWindow } = require('electron')
-
+var path = require('path')
 let win;
 
 function createWindow() {
     win = new BrowserWindow({
+        titleBarStyle: 'hidden',
+        width: 800,
+        height: 600,
         minWidth: 500,
         minHeight: 500,
         backgroundColor: '#ffffff',
-        icon: `file://${__dirname}/dist/assets/logo.png`
-    });
+        icon: `file://${__dirname}/dist/assets/icons/win/logo.ico`
+    })
 
-    win.loadURL(`file://${__dirname}/dist/index.html`);
+    win.loadFile(`file://${__dirname}/dist/index.html`);
 
     //dev tools
     //win.webContents.openDevTools();
@@ -18,7 +21,7 @@ function createWindow() {
     //when window is closed
     win.on('closed', function () {
         win = null;
-    });
+    })
 }
 
 //create app on electron initialization
@@ -26,13 +29,14 @@ app.on('ready', createWindow);
 
 //quit when all windows are closed
 app.on('window-all-closed', function () {
-    if (process.platform !== 'darwin') {//ios
-        app.quit();
+    // On macOS specific close process  
+    if (process.platform !== 'darwin') {
+        app.quit()
     }
-});
-
+})
 app.on('activate', function () {
+    // macOS specific close process  
     if (win === null) {
-        createWindow();
+        createWindow()
     }
-});
+})  
