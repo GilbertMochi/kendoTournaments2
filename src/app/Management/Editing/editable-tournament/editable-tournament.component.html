@@ -136,12 +136,18 @@
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
 
+                                <h1>Lisätyt ottelut:</h1>
+                                    <h1 *ngFor="let m of this.localMatches">
+                                        Location: {{m.location}}, poolId: {{m.poolId}}, time: {{m.time}}
+                                    </h1>
+
                                 <div class="participantItem"
                                     *ngFor="let item of this.localTournament.pools; let i = index">
 
                                     <app-editable-pool [pool]="item" [tournamentId]="this.tournament.id"
                                         [participants]="this.localTournament.participants"
-                                        [dates]="this.localTournament.dates" (updatePool)='updatePool($event, i);'>
+                                        [dates]="this.localTournament.dates" (updatePool)='updatePool($event, i);'
+                                        (addedLocalMatch)='addedLocalMatch($event);'>
                                     </app-editable-pool>
 
                                     <button mat-stroked-button color="warn" class="deleteItemBtn"

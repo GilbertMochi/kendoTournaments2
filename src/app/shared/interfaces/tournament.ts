@@ -1,7 +1,6 @@
 import { DateTimeWithLocation } from './date-time-with-location';
 import { Participant } from './participant';
 import { Pool } from './pool';
-import { iMatchInfoItem } from './matchInfoItem';
 
 export interface Tournament {
     name: string;
@@ -9,8 +8,6 @@ export interface Tournament {
     dates: DateTimeWithLocation[];
     participants: Participant[];
     pools: Pool[];
-    upcomingMatches: iMatchInfoItem[];
-    pastMatches: iMatchInfoItem[];
     winner?: Participant;
     second?: Participant;
     third?: Participant;

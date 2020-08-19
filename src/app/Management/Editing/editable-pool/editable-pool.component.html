@@ -160,10 +160,68 @@
                         </mat-card-title>
                     </mat-card-header>
                     <mat-card-content>
-                        {{this.language.matchesText[10]}}
+
+                        <form [formGroup]="newMatchForm" (change)="getNewMatchValuesFromForm($event)">
+
+                            <!--location input-->
+                            <mat-form-field>
+                                <mat-label>{{this.language.matchesText[10]}}</mat-label>
+                                <input matInput formControlName="newMatchLocation" />
+                                <mat-error *ngIf="this.validateFormControl('newMatchLocation', this.newMatchForm)">
+                                    {{this.language.matchesText[17]}}</mat-error>
+                            </mat-form-field>
+
+                            <!-- participant1 selection -->
+                            <mat-form-field appearance="fill">
+                                <mat-label>{{this.language.matchesText[7]}}</mat-label>
+                                <mat-select [(value)]="newMatchP1">
+                                    <mat-option *ngFor="let participant of this.localPool.participants"
+                                        [value]="participant">
+                                        {{participant.firstname}} {{participant.lastname}} {{participant.rank}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="this.newMatchP1==null">{{this.language.matchesText[11]}}
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- participant2 selection -->
+                            <mat-form-field appearance="fill">
+                                <mat-label>{{this.language.matchesText[8]}}</mat-label>
+                                <mat-select [(value)]="newMatchP2">
+                                    <mat-option *ngFor="let participant of this.localPool.participants"
+                                        [value]="participant">
+                                        {{participant.firstname}} {{participant.lastname}} {{participant.rank}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="this.newMatchP2==null">{{this.language.matchesText[11]}}
+                                </mat-error>
+                            </mat-form-field>
+
+                            <!-- date and time selection -->
+                            <!--date-->
+                            <mat-form-field appearance="fill">
+                                <mat-label>{{this.language.matchesText[12]}}</mat-label>
+                                <mat-select [(value)]="newMatchDate">
+                                    <mat-option *ngFor="let date of this.dates" [value]="date">
+                                        {{date.dateAsString | date:'fullDate'}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="this.newMatchDate==null">
+                                    {{this.language.matchesText[13]}}</mat-error>
+                            </mat-form-field>
+
+                            <!--time-->
+                            <mat-form-field>
+                                <mat-label>{{this.language.matchesText[14]}}</mat-label>
+                                <input matInput type="time" formControlName="newMatchTime" />
+                                <mat-error *ngIf="this.validateFormControl('newMatchTime', this.newMatchForm)">
+                                    {{this.language.matchesText[15]}}</mat-error>
+                            </mat-form-field>
+                        </form>
                     </mat-card-content>
                     <mat-card-actions>
-
+                        <button class="editButton" mat-stroked-button color="primary" [disabled]="!canAddMatch()"
+                            (click)="addLocalMatch()">{{this.language.matchesText[19]}}</button>
                     </mat-card-actions>
                 </mat-card>
             </mat-expansion-panel>

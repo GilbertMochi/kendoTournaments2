@@ -1,5 +1,6 @@
 export interface iMatchInfoItem {
-    id?: string;
+    id: string;
     dateAsIsoString: string;
     location: string;
+    time: string;
 }

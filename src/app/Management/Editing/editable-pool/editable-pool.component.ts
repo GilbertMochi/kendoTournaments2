@@ -19,6 +19,8 @@ export class EditablePoolComponent implements OnInit {
   @Input() participants: Participant[];
   @Input() dates: DateTimeWithLocation[];
   @Output() updatePool = new EventEmitter<Pool>();
+  @Output() addedLocalMatch = new EventEmitter<Match>();
+
   isEdit: boolean = false;
   addNewMatch: boolean = false;
   matchesPanelOpen: boolean = false;
@@ -31,14 +33,15 @@ export class EditablePoolComponent implements OnInit {
   localPool: Pool;
   matches: Match[];
 
-  localMatches:Match[]=[];
-
   poolForm: FormGroup;
-  newMacthForm: FormGroup;
+  newMatchForm: FormGroup;
 
-  //twowaybound values for match participants
-  newMatchP1:Participant;
-  newMatchP2:Participant;
+  //two way bound values for match
+  newMatchP1: Participant;
+  newMatchP2: Participant;
+  newMatchDate: string;
+  newMatchLocation: string;
+  newMatchTime: string;
 
   constructor(private matchManager: MatchManagerService, public language: LanguagesService, private FB: FormBuilder) { }
 
@@ -57,9 +60,13 @@ export class EditablePoolComponent implements OnInit {
       });
     });
 
+    this.newMatchForm = this.FB.group({
+      newMatchTime: ['', Validators.required],
+      newMatchLocation: ['', Validators.required]
+    });
+
     this.localPool = this.pool;
     this.initialisePoolForm();
-    this.initializeNewMatchForm();
   }
 
   initialisePoolForm() {
@@ -72,14 +79,6 @@ export class EditablePoolComponent implements OnInit {
     this.poolForm.get('poolId').setValue(this.localPool.id);
   }
 
-  initializeNewMatchForm(){
-    this.newMacthForm=this.FB.group({
-      newMatchLocation: [''],
-      newMatchDateAsISoString: [''],
-      newMatchTime: [''],
-    });
-  }
-
   editPool() {
     this.isEdit = true;
     this.poolPanelOpen = true;
@@ -90,14 +89,12 @@ export class EditablePoolComponent implements OnInit {
     this.updatePool.emit(this.localPool);//changes back to parent
     this.isEdit = false;
     this.initialisePoolForm();
-    this.initializeNewMatchForm();
   }
 
   cancelChanges() {
     this.localPool = this.pool;
     this.isEdit = false;
     this.initialisePoolForm();
-    this.initializeNewMatchForm();
   }
 
   getPoolValues() {
@@ -113,6 +110,19 @@ export class EditablePoolComponent implements OnInit {
     }
   }
 
+  resetMatchForm() {
+    this.newMatchForm.reset();
+    this.newMatchP1 = null;
+    this.newMatchP2 = null;
+    this.newMatchDate = '';
+    this.newMatchTime = '';
+  }
+
+  getNewMatchValuesFromForm(event: any) {
+    this.newMatchLocation = this.newMatchForm.get('newMatchLocation').value;
+    this.newMatchTime = this.newMatchForm.get('newMatchTime').value;
+  }
+
   updateMatch(m: Match) {
     this.matchManager.updateMatch(m)
   }
@@ -122,28 +132,38 @@ export class EditablePoolComponent implements OnInit {
     this.localPool.matchesInfo.splice(i, 1);
   }
 
-  addMatch(m: Match) {
-    const matchId = this.matchManager.createMatch(m);
-
-    this.localPool.matchesInfo.push({ id: matchId, location: m.location, dateAsIsoString: m.dateAsIsoString });
-    this.saveChanges();
+  addLocalMatch() {
+    const m:Match={
+      tournamentId: this.tournamentId,
+      poolId: this.pool.id,
+      participant1: this.newMatchP1,
+      participant2: this.newMatchP2,
+      location: this.newMatchLocation,
+      dateAsIsoString: this.newMatchDate,
+      time: this.newMatchTime,
+      p1Score: null,
+      p2Score: null,
+      winner: null,
+      matchStarted: false,
+      matchOver: false,
+    };
+    this.addedLocalMatch.emit(m);//local match back to editable tournament
+    this.resetMatchForm();
   }
 
-  addLocalMatch(){
-    this.localMatches.push({
-    tournamentId:this.tournamentId,
-    poolId:this.pool.id,
-    participant1: this.newMatchP1,
-    participant2: this.newMatchP2,
-    location: this.newMacthForm.get('newMatchLocation').value,
-    dateAsIsoString: this.newMacthForm.get('newMatchDateAsISoString').value,
-    time: this.newMacthForm.get('newMatchTime').value,//get the time from the date when creating
-    p1Score: null,
-    p2Score: null,
-    winner: null,
-    matchStarted: false,
-    matchOver: false,
-    });
+  canAddMatch(): boolean {
+    if (this.newMatchDate != null && this.newMatchDate != '') {
+      if (this.newMatchLocation != null && this.newMatchLocation != '') {
+        if (this.newMatchP1 != null && this.newMatchP2 != null) {
+          if (this.newMatchTime != null && this.newMatchTime != '') {
+            return true;
+          }
+        }
+      }
+    }
+    else {
+      return false;
+    }
   }
 
   addParticipant() {
@@ -164,6 +184,12 @@ export class EditablePoolComponent implements OnInit {
 
   removeSecond() {
     this.localPool.second = null;
+  }
+
+  //this is from here https://stackoverflow.com/questions/46127159/unable-to-assign-form-control-to-template-variable-in-reactive-forms-angular
+  validateFormControl(controlName: string, form: FormGroup) {
+    let control = form.get(controlName);
+    return control.invalid && control.touched;
   }
 }
 

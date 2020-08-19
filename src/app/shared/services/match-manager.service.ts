@@ -15,10 +15,21 @@ export class MatchManagerService {
 
   createMatch(match: Match): string {
     var id;
-    this.firestore.collection('Matches').add(match).then((query) => {
-      id = query.id
-    });
+    this.firestore.collection('Matches').add(match).then(function (docRef) {
+      id = docRef.id; console.log('id should be: ' + id)
+    }).catch(function (error) { console.error(error) });
     return id;
+  }
+
+  async AddNewMatch(m: Match) {
+    let docRef = this.firestore.collection('Matches').add(m);
+    try {
+      const docAdded = await docRef;
+      this.firestore.doc('Matches/' + docAdded.id).update({ id: docAdded.id });
+      return docRef;
+    } catch (err) {
+      return err;
+    }
   }
 
   updateMatch(match: Match) {

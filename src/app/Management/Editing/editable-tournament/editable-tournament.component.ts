@@ -10,6 +10,7 @@ import { TournamentManagerService } from 'src/app/shared/services/tournament-man
 import { LanguagesService } from 'src/app/shared/services/languages.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Match } from 'src/app/shared/interfaces/match';
+import { MatchManagerService } from 'src/app/shared/services/match-manager.service';
 
 @Component({
   selector: 'app-editable-tournament',
@@ -27,7 +28,14 @@ export class EditableTournamentComponent implements OnInit {
   tournamentForm: FormGroup;
   localTournament: Tournament;
 
-  constructor(private router: Router, private tournamentService: TournamentManagerService, public language: LanguagesService, private FB: FormBuilder, private _snackBar: MatSnackBar) { }
+  localMatches: Match[] = [];
+
+  constructor(private router: Router,
+    private tournamentService: TournamentManagerService,
+    public language: LanguagesService,
+    private matchManager: MatchManagerService,
+    private FB: FormBuilder,
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.localTournament = this.tournament;
@@ -51,6 +59,7 @@ export class EditableTournamentComponent implements OnInit {
   }
 
   saveChanges() {
+    this.addMatches();
     this.tournamentService.updateTournament(this.localTournament);
     this.isEdit = false;
     this.resetTournamentForm();
@@ -189,6 +198,31 @@ export class EditableTournamentComponent implements OnInit {
     this.localTournament.pools[i] = p;
   }
 
+  addedLocalMatch(m: Match) {
+    this.localMatches.push(m);
+  }
+
+  async addMatches() {
+    //loop through all pools
+    for (let i = 0; i < this.localTournament.pools.length; i++) {
+      //loop through all local matches
+      for (let j = 0; j < this.localMatches.length; j++) {
+        //check which pool the match belongs to and add the match info to the pools match info array
+        if (this.localTournament.pools[i].id == this.localMatches[j].poolId) {
+
+          // let result = await this.matchManager.AddNewMatch(this.localMatches[j]);
+          // this.localTournament.pools[i].matchesInfo.push({ id: result.id, location: this.localMatches[j].location, dateAsIsoString: this.localMatches[j].dateAsIsoString, time: this.localMatches[j].time });
+
+          //add the match to firebase and get the matchesId
+          // const matchId = this.matchManager.AddNewMatch(this.localMatches[j]);
+          // console.log('matchId:' + matchId);
+          // this.localTournament.pools[i].matchesInfo.push({ id: matchId, location: this.localMatches[j].location, dateAsIsoString: this.localMatches[j].dateAsIsoString, time: this.localMatches[j].time });
+        }
+      }
+    }
+
+  }
+
   openSnackBar(message: string, action: string) {
     this._snackBar.open(message, action, {
       duration: 5000,
@@ -198,7 +232,7 @@ export class EditableTournamentComponent implements OnInit {
 }
 
 //cancel changes btn
-/* 
+/*
 <button mat-raised-button color="warn" class="add" (click)="cancelEdit()">
 {{this.language.miscellanousText[2]}}
 <mat-icon>cancel</mat-icon>

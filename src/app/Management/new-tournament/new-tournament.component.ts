@@ -134,8 +134,6 @@ export class NewTournamentComponent implements OnInit {
       dates: this.datesWithLocations,
       participants: this.participants,
       pools: this.pools,
-      upcomingMatches: this.upcomingMatches,
-      pastMatches: this.pastMatches,
       tournamentStarted: false,
       tournamentOver: false,
     };
