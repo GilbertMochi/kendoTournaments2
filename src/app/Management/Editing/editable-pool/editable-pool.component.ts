@@ -31,7 +31,8 @@ export class EditablePoolComponent implements OnInit {
   playerToAddToPool: Participant;
 
   localPool: Pool;
-  matches: Match[];
+  matches: Match[] = [];
+  matchesForThisPool: string[] = [];
 
   poolForm: FormGroup;
   newMatchForm: FormGroup;
@@ -46,7 +47,6 @@ export class EditablePoolComponent implements OnInit {
   constructor(private matchManager: MatchManagerService, public language: LanguagesService, private FB: FormBuilder) { }
 
   ngOnInit(): void {
-
     //get all the matches for this pool from firebase
     this.matchManager.getMatches().subscribe(data => {
       this.matches = data.map(d => {
@@ -55,6 +55,7 @@ export class EditablePoolComponent implements OnInit {
         if (data.tournamentId == this.tournamentId && data.poolId == this.pool.id) {
           data.id = d.payload.doc.id;
           console.log('added match' + data.id + ' from firestore to pool' + this.pool.id);
+          this.matchesForThisPool.push(data.id);
           return data;
         }
       });
@@ -67,6 +68,8 @@ export class EditablePoolComponent implements OnInit {
 
     this.localPool = this.pool;
     this.initialisePoolForm();
+
+    this.localPool.matchesInfo = this.matchesForThisPool;
   }
 
   initialisePoolForm() {
@@ -128,12 +131,12 @@ export class EditablePoolComponent implements OnInit {
   }
 
   deleteMatch(i) {
-    this.matchManager.deleteMatch(this.localPool.matchesInfo[i].id);
+    this.matchManager.deleteMatch(this.localPool.matchesInfo[i]);
     this.localPool.matchesInfo.splice(i, 1);
   }
 
   addLocalMatch() {
-    const m:Match={
+    const m: Match = {
       tournamentId: this.tournamentId,
       poolId: this.pool.id,
       participant1: this.newMatchP1,

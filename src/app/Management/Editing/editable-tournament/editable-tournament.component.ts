@@ -3,7 +3,6 @@ import { Tournament } from 'src/app/shared/interfaces/tournament';
 import { DateTimeWithLocation } from 'src/app/shared/interfaces/date-time-with-location';
 import { Participant } from 'src/app/shared/interfaces/participant';
 import { Pool } from 'src/app/shared/interfaces/pool';
-import { iMatchInfoItem } from 'src/app/shared/interfaces/matchInfoItem';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TournamentManagerService } from 'src/app/shared/services/tournament-manager.service';
@@ -11,6 +10,7 @@ import { LanguagesService } from 'src/app/shared/services/languages.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Match } from 'src/app/shared/interfaces/match';
 import { MatchManagerService } from 'src/app/shared/services/match-manager.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-editable-tournament',
@@ -35,7 +35,8 @@ export class EditableTournamentComponent implements OnInit {
     public language: LanguagesService,
     private matchManager: MatchManagerService,
     private FB: FormBuilder,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private firestore: AngularFirestore) { }
 
   ngOnInit(): void {
     this.localTournament = this.tournament;
@@ -191,6 +192,8 @@ export class EditableTournamentComponent implements OnInit {
   }
 
   deletePool(i) {
+    //delete all of this pool's matches as well
+    console.warn('remember to delete the matches for this pool as well!');
     this.localTournament.pools.splice(i, 1);
   }
 
@@ -209,6 +212,13 @@ export class EditableTournamentComponent implements OnInit {
       for (let j = 0; j < this.localMatches.length; j++) {
         //check which pool the match belongs to and add the match info to the pools match info array
         if (this.localTournament.pools[i].id == this.localMatches[j].poolId) {
+
+          this.matchManager.createMatch(this.localMatches[j]);
+
+          //this works but the tournament is updated faster than the id's are added to the local pool
+          // this.firestore.collection('Matches').add(this.localMatches[j]).then(docRef => {
+          //   this.localTournament.pools[i].matchesInfo.push(docRef.id);
+          // }).catch(e => console.error('Error adding a new match to firebase', e));
 
           // let result = await this.matchManager.AddNewMatch(this.localMatches[j]);
           // this.localTournament.pools[i].matchesInfo.push({ id: result.id, location: this.localMatches[j].location, dateAsIsoString: this.localMatches[j].dateAsIsoString, time: this.localMatches[j].time });

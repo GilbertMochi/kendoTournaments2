@@ -6,7 +6,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { DateTimeWithLocation } from 'src/app/shared/interfaces/date-time-with-location';
 import { Participant } from 'src/app/shared/interfaces/participant';
 import { Pool } from 'src/app/shared/interfaces/pool';
-import { iMatchInfoItem } from 'src/app/shared/interfaces/matchInfoItem';
 import { Tournament } from 'src/app/shared/interfaces/tournament';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -31,8 +30,6 @@ export class NewTournamentComponent implements OnInit {
   datesWithLocations: DateTimeWithLocation[] = [];
   participants: Participant[] = [];
   pools: Pool[] = [];
-  upcomingMatches: iMatchInfoItem[] = [];
-  pastMatches: iMatchInfoItem[] = [];
 
   tournamentForm: FormGroup;
 
@@ -245,8 +242,6 @@ export class NewTournamentComponent implements OnInit {
     this.datesWithLocations = [];
     this.participants = [];
     this.pools = [];
-    this.upcomingMatches = [];
-    this.pastMatches = [];
 
   }
 

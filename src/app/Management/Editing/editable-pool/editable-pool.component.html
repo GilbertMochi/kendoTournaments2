@@ -2,46 +2,20 @@
     <mat-expansion-panel [expanded]="poolPanelOpen" (opened)="poolPanelOpen = true" (closed)="poolPanelOpen = false">
         <mat-expansion-panel-header>
             <mat-panel-title>
-                <h1>{{this.pool.name}}</h1>
+                {{this.language.poolsText[2]}}: {{this.pool.name}}
             </mat-panel-title>
             <mat-panel-description>
-                <h1>{{this.pool.id}}</h1>
+                {{this.language.miscellanousText[14]}} {{this.pool.id}}
             </mat-panel-description>
         </mat-expansion-panel-header>
 
-        <button class="editBtn" mat-stroked-button color="accent"
+        <h1><strong>{{this.pool.name}}</strong></h1>
+        <button *ngIf="!isEdit" class="editBtn" mat-stroked-button color="accent"
             (click)="editPool()">{{this.language.miscellanousText[0]}}</button>
-
-        <!--show winners-->
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>
-                    {{this.language.poolsText[12]}}
-                </mat-card-title>
-                <mat-card-subtitle>
-                    <mat-list>
-                        <mat-list-item *ngIf="this.localPool.winner!=null">{{this.language.poolsText[10]}}:
-                            {{this.localPool.winner.firstname}}
-                            {{this.localPool.winner.lastname}} {{this.localPool.winner.rank}}<button mat-icon-button
-                                color="warn" (click)="removeWinner()">
-                                <mat-icon>delete_forever</mat-icon>
-                            </button></mat-list-item>
-                        <mat-list-item *ngIf="this.localPool.second!=null">{{this.language.poolsText[11]}}:
-                            {{this.localPool.second.firstname}}
-                            {{this.localPool.second.lastname}} {{this.localPool.second.rank}}<button mat-icon-button
-                                color="warn" (click)="removeSecond()">
-                                <mat-icon>delete_forever</mat-icon>
-                            </button></mat-list-item>
-                    </mat-list>
-                </mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content *ngIf="this.localPool.winner==null && this.localPool.second==null">
-                {{this.language.poolsText[16]}}
-            </mat-card-content>
-        </mat-card>
 
         <!--edit the pool values-->
         <mat-card *ngIf="isEdit">
+
             <mat-card-header>
                 <mat-card-title>
                     {{this.language.poolsText[8]}}
@@ -64,6 +38,23 @@
             <mat-card-content>
                 <h2>{{this.language.participantsText[0]}}</h2>
                 <h3>{{this.language.poolsText[9]}}</h3>
+
+                <!--show list of added participants if there are any-->
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="addedParticipantsPanelOpen = true"
+                        (closed)="addedParticipantsPanelOpen = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{this.language.participantsText[14]}}
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <mat-list *ngIf="this.localPool.participants.length>0">
+                            <mat-list-item *ngFor="let item of this.localPool.participants">
+                                {{item.firstname}} {{item.lastname}} {{item.rank}}
+                            </mat-list-item>
+                        </mat-list>
+                    </mat-expansion-panel>
+                </mat-accordion>
 
                 <!--add participants-->
                 <div class="horisontally">
@@ -114,6 +105,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
+
             </mat-card-content>
             <mat-card-actions>
                 <!--button for saving the pool edit-->
@@ -124,108 +116,131 @@
             </mat-card-actions>
         </mat-card>
 
-        <!--show list of added participants if there are any-->
-        <mat-accordion>
-            <mat-expansion-panel (opened)="addedParticipantsPanelOpen = true"
-                (closed)="addedParticipantsPanelOpen = false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{this.language.participantsText[14]}}
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
-                <mat-list *ngIf="this.localPool.participants.length>0">
-                    <mat-list-item *ngFor="let item of this.localPool.participants">
-                        {{item.firstname}} {{item.lastname}} {{item.rank}}
-                    </mat-list-item>
-                </mat-list>
-            </mat-expansion-panel>
-        </mat-accordion>
+        <!--show winners-->
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    {{this.language.poolsText[12]}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <mat-list>
+                        <mat-list-item *ngIf="this.localPool.winner!=null">{{this.language.poolsText[10]}}:
+                            {{this.localPool.winner.firstname}}
+                            {{this.localPool.winner.lastname}} {{this.localPool.winner.rank}}<button mat-icon-button
+                                color="warn" (click)="removeWinner()">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button></mat-list-item>
+                        <mat-list-item *ngIf="this.localPool.second!=null">{{this.language.poolsText[11]}}:
+                            {{this.localPool.second.firstname}}
+                            {{this.localPool.second.lastname}} {{this.localPool.second.rank}}<button mat-icon-button
+                                color="warn" (click)="removeSecond()">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button></mat-list-item>
+                    </mat-list>
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content *ngIf="this.localPool.winner==null && this.localPool.second==null">
+                {{this.language.poolsText[16]}}
+            </mat-card-content>
+        </mat-card>
 
-        <mat-accordion>
-            <mat-expansion-panel (opened)="matchesPanelOpen = true" (closed)="matchesPanelOpen = false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        {{this.language.matchesText[0]}}
-                    </mat-panel-title>
-                    <mat-panel-description>
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <!--editable match-->
+        <!-- add new match -->
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>
+                    {{this.language.matchesText[0]}}
+                </mat-card-title>
+                <mat-card-subtitle>
+                    {{this.language.matchesText[1]}}
+                </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
 
-                <!-- new match -->
-                <mat-card>
-                    <mat-card-header>
-                        <mat-card-title>
-                            {{this.language.matchesText[1]}}
-                        </mat-card-title>
-                    </mat-card-header>
-                    <mat-card-content>
+                <!--show a list of added matches -->
+                <mat-accordion>
+                    <mat-expansion-panel (opened)="matchesPanelOpen = true" (closed)="matchesPanelOpen = false">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                {{this.language.matchesText[20]}}
+                            </mat-panel-title>
+                            <mat-panel-description>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <!--editable match-->
+                        <div class="addedMatches" *ngFor="let m of this.matches">
+                            <h3><strong>{{this.language.miscellanousText[14]}} {{m.id}}</strong></h3>
+                            <h4>{{this.language.miscellanousText[17]}} {{m.location}}</h4>
+                            <h4>{{this.language.miscellanousText[13]}} {{m.time}}</h4>
+                            <p><strong>{{this.language.participantsText[0]}}</strong></p>
+                            <p>{{m.participant1.firstname}} {{m.participant1.lastname}} {{m.participant1.rank}}
+                            </p>
+                            <p>{{m.participant2.firstname}} {{m.participant2.lastname}} {{m.participant2.rank}}
+                            </p>
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
 
-                        <form [formGroup]="newMatchForm" (change)="getNewMatchValuesFromForm($event)">
+                <form [formGroup]="newMatchForm" (change)="getNewMatchValuesFromForm($event)">
 
-                            <!--location input-->
-                            <mat-form-field>
-                                <mat-label>{{this.language.matchesText[10]}}</mat-label>
-                                <input matInput formControlName="newMatchLocation" />
-                                <mat-error *ngIf="this.validateFormControl('newMatchLocation', this.newMatchForm)">
-                                    {{this.language.matchesText[17]}}</mat-error>
-                            </mat-form-field>
+                    <!--location input-->
+                    <mat-form-field>
+                        <mat-label>{{this.language.matchesText[10]}}</mat-label>
+                        <input matInput formControlName="newMatchLocation" />
+                        <mat-error *ngIf="this.validateFormControl('newMatchLocation', this.newMatchForm)">
+                            {{this.language.matchesText[17]}}</mat-error>
+                    </mat-form-field>
 
-                            <!-- participant1 selection -->
-                            <mat-form-field appearance="fill">
-                                <mat-label>{{this.language.matchesText[7]}}</mat-label>
-                                <mat-select [(value)]="newMatchP1">
-                                    <mat-option *ngFor="let participant of this.localPool.participants"
-                                        [value]="participant">
-                                        {{participant.firstname}} {{participant.lastname}} {{participant.rank}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="this.newMatchP1==null">{{this.language.matchesText[11]}}
-                                </mat-error>
-                            </mat-form-field>
+                    <!-- participant1 selection -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{this.language.matchesText[7]}}</mat-label>
+                        <mat-select [(value)]="newMatchP1">
+                            <mat-option *ngFor="let participant of this.localPool.participants" [value]="participant">
+                                {{participant.firstname}} {{participant.lastname}} {{participant.rank}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="this.newMatchP1==null">{{this.language.matchesText[11]}}
+                        </mat-error>
+                    </mat-form-field>
 
-                            <!-- participant2 selection -->
-                            <mat-form-field appearance="fill">
-                                <mat-label>{{this.language.matchesText[8]}}</mat-label>
-                                <mat-select [(value)]="newMatchP2">
-                                    <mat-option *ngFor="let participant of this.localPool.participants"
-                                        [value]="participant">
-                                        {{participant.firstname}} {{participant.lastname}} {{participant.rank}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="this.newMatchP2==null">{{this.language.matchesText[11]}}
-                                </mat-error>
-                            </mat-form-field>
+                    <!-- participant2 selection -->
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{this.language.matchesText[8]}}</mat-label>
+                        <mat-select [(value)]="newMatchP2">
+                            <mat-option *ngFor="let participant of this.localPool.participants" [value]="participant">
+                                {{participant.firstname}} {{participant.lastname}} {{participant.rank}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="this.newMatchP2==null">{{this.language.matchesText[11]}}
+                        </mat-error>
+                    </mat-form-field>
 
-                            <!-- date and time selection -->
-                            <!--date-->
-                            <mat-form-field appearance="fill">
-                                <mat-label>{{this.language.matchesText[12]}}</mat-label>
-                                <mat-select [(value)]="newMatchDate">
-                                    <mat-option *ngFor="let date of this.dates" [value]="date">
-                                        {{date.dateAsString | date:'fullDate'}}
-                                    </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="this.newMatchDate==null">
-                                    {{this.language.matchesText[13]}}</mat-error>
-                            </mat-form-field>
+                    <!-- date and time selection -->
+                    <!--date-->
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{this.language.matchesText[12]}}</mat-label>
+                        <mat-select [(value)]="newMatchDate">
+                            <mat-option *ngFor="let date of this.dates" [value]="date">
+                                {{date.dateAsString | date:'fullDate'}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="this.newMatchDate==null">
+                            {{this.language.matchesText[13]}}</mat-error>
+                    </mat-form-field>
 
-                            <!--time-->
-                            <mat-form-field>
-                                <mat-label>{{this.language.matchesText[14]}}</mat-label>
-                                <input matInput type="time" formControlName="newMatchTime" />
-                                <mat-error *ngIf="this.validateFormControl('newMatchTime', this.newMatchForm)">
-                                    {{this.language.matchesText[15]}}</mat-error>
-                            </mat-form-field>
-                        </form>
-                    </mat-card-content>
-                    <mat-card-actions>
-                        <button class="editButton" mat-stroked-button color="primary" [disabled]="!canAddMatch()"
-                            (click)="addLocalMatch()">{{this.language.matchesText[19]}}</button>
-                    </mat-card-actions>
-                </mat-card>
-            </mat-expansion-panel>
-        </mat-accordion>
+                    <!--time-->
+                    <mat-form-field>
+                        <mat-label>{{this.language.matchesText[14]}}</mat-label>
+                        <input matInput type="time" formControlName="newMatchTime" />
+                        <mat-error *ngIf="this.validateFormControl('newMatchTime', this.newMatchForm)">
+                            {{this.language.matchesText[15]}}</mat-error>
+                    </mat-form-field>
+                </form>
+            </mat-card-content>
+            <mat-card-actions>
+                <button class="editButton" mat-stroked-button color="primary" [disabled]="!canAddMatch()"
+                    (click)="addLocalMatch()">{{this.language.matchesText[19]}}</button>
+            </mat-card-actions>
+        </mat-card>
 
     </mat-expansion-panel>
 </mat-accordion>

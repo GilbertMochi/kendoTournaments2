@@ -136,11 +136,6 @@
                                     </mat-panel-description>
                                 </mat-expansion-panel-header>
 
-                                <h1>Lisätyt ottelut:</h1>
-                                    <h1 *ngFor="let m of this.localMatches">
-                                        Location: {{m.location}}, poolId: {{m.poolId}}, time: {{m.time}}
-                                    </h1>
-
                                 <div class="participantItem"
                                     *ngFor="let item of this.localTournament.pools; let i = index">
 

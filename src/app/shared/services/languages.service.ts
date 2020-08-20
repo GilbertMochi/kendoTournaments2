@@ -123,6 +123,7 @@ export class LanguagesService {
     this.matchesText.push('Lisää ottelun sijainti esim. huone a3');//17
     this.matchesText.push('Tyhjät ottelut tulee lisätä pooliin ennen kuin niille voi asettaa kilpailijat ja muut tiedot. Tämän jälkeen muutokset pitää tallentaa.');//18
     this.matchesText.push('Lisää ottelu');//19
+    this.matchesText.push('Lisätyt ottelut');//20
   }
 
   private getDashboardText() {
