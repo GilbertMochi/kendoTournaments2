@@ -1,0 +1,19 @@
+<mat-accordion>
+    <mat-expansion-panel (opened)="tournamentPanelOpen = true" (closed)="tournamentPanelOpen = false">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                <strong>{{this.tournament.name}}</strong>
+                <div class="spacing"></div>{{this.language.miscellanousText[14]}} {{this.tournament.id}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{this.language.refereeText[16]}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <h1>{{this.language.poolsText[0]}}</h1>
+        <!--display each pool of the tournament-->
+        <app-pool-with-matches *ngFor="let p of this.tournament.pools" [pool]="p" [tournamentId]="this.tournament.id">
+        </app-pool-with-matches>
+
+    </mat-expansion-panel>
+</mat-accordion>

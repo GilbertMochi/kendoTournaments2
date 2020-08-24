@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatchManagerService } from 'src/app/shared/services/match-manager.service';
 import { LanguagesService } from 'src/app/shared/services/languages.service';
 import { TournamentManagerService } from 'src/app/shared/services/tournament-manager.service';
 import { Tournament } from 'src/app/shared/interfaces/tournament';
@@ -14,13 +12,10 @@ export class RefereeingOverviewComponent implements OnInit {
 
   tournaments: Tournament[];
   loading: boolean;
-  tournamentPanelOpen: boolean = false;
 
   constructor(
     private tournamentService: TournamentManagerService,
     public language: LanguagesService,
-    private matchManager: MatchManagerService,
-    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -35,5 +30,4 @@ export class RefereeingOverviewComponent implements OnInit {
     });
     this.loading = false;
   }
-
 }

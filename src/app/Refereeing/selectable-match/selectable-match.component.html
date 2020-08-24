@@ -1,0 +1,12 @@
+<div class="match">
+    <h4>{{this.language.miscellanousText[14]}} {{this.match.id}}</h4>
+    <h4>{{this.language.miscellanousText[13]}} {{this.match.time}}</h4>
+    <h4>{{this.language.miscellanousText[17]}} {{this.match.location}}</h4>
+    <h4>{{this.match.participant1.firstname}} {{this.match.participant1.lastname}} <strong>-</strong>
+        {{this.match.participant2.firstname}} {{this.match.participant2.lastname}}</h4>
+
+    <button mat-raised-button color="primary" (click)="setMatchToReferee()"
+        [matTooltip]="this.language.refereeText[4]">
+        {{this.language.refereeText[3]}}
+    </button>
+</div>

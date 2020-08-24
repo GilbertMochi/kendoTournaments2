@@ -1,36 +1,4 @@
 <mat-spinner *ngIf="loading;else manytournaments"></mat-spinner>
 <ng-template #manytournaments>
-    <!--make an accordion for each tournament-->
-    <mat-accordion *ngFor="let item of this.tournaments">
-        <mat-expansion-panel (opened)="tournamentPanelOpen = true" (closed)="tournamentPanelOpen = false">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    <strong>{{item.name}}</strong>
-                    <div class="spacing"></div>{{this.language.miscellanousText[14]}} {{item.id}}
-                </mat-panel-title>
-                <mat-panel-description>
-                    {{this.language.refereeText[16]}}
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-
-            <!--display each pool of the tournament-->
-            <mat-card *ngFor="let p of item.pools">
-                <mat-card-header>
-                    <mat-card-title>
-                        {{p.name}}
-                    </mat-card-title>
-                    <mat-card-subtitle>
-                        {{this.language.miscellanousText[14]}} {{p.id}}
-                    </mat-card-subtitle>
-                </mat-card-header>
-
-                
-
-                <mat-card-actions>
-
-                </mat-card-actions>
-            </mat-card>
-
-        </mat-expansion-panel>
-    </mat-accordion>
+    <app-tournament-with-pools-and-matches *ngFor="let item of this.tournaments" [tournament]="item"></app-tournament-with-pools-and-matches>
 </ng-template>

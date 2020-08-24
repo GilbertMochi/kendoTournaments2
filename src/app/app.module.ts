@@ -19,6 +19,9 @@ import { EditableTournamentComponent } from './Management/Editing/editable-tourn
 import { EditableParticipantComponent } from './Management/Editing/editable-participant/editable-participant.component';
 import { EditablePoolComponent } from './Management/Editing/editable-pool/editable-pool.component';
 import { RefereeingOverviewComponent } from './Refereeing/refereeing-overview/refereeing-overview.component';
+import { PoolWithMatchesComponent } from './Refereeing/pool-with-matches/pool-with-matches.component';
+import { SelectableMatchComponent } from './Refereeing/selectable-match/selectable-match.component';
+import { TournamentWithPoolsAndMatchesComponent } from './Refereeing/tournament-with-pools-and-matches/tournament-with-pools-and-matches.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,9 @@ import { RefereeingOverviewComponent } from './Refereeing/refereeing-overview/re
     EditableParticipantComponent,
     EditablePoolComponent,
     RefereeingOverviewComponent,
+    PoolWithMatchesComponent,
+    SelectableMatchComponent,
+    TournamentWithPoolsAndMatchesComponent,
   ],
   imports: [
     BrowserModule,

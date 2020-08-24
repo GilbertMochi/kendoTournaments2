@@ -145,7 +145,7 @@ export class LanguagesService {
     this.refereeText.push("Valitse ottelu");//1
     this.refereeText.push("Tulevat ottelut");//2
     this.refereeText.push("Aloita ottelu");//3
-    this.refereeText.push("Aloittamalla ottelun, ottelun tuomarointi voidaan aloittaa ja ottelu siirtyy nähtäväksi myös seuranta palveluun.");//4
+    this.refereeText.push("Aloittamalla ottelun, sen tuomarointi voidaan aloittaa ja ottelu siirtyy nähtäväksi myös seuranta palveluun.");//4
     this.refereeText.push("Anna pisteitä");//5
     this.refereeText.push("Anna virhe");//6
     this.refereeText.push("Lopeta ottelu");//7
