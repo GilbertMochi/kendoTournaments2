@@ -4,6 +4,7 @@ import { DashboardComponent } from '../Management/dashboard/dashboard.component'
 import { HomeComponent } from '../home/home.component';
 import { NewTournamentComponent } from '../Management/new-tournament/new-tournament.component';
 import { EditTournamentsComponent } from '../Management/Editing/edit-tournaments/edit-tournaments.component';
+import { RefereeingOverviewComponent } from '../Refereeing/refereeing-overview/refereeing-overview.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,7 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'add-tournaments', component: NewTournamentComponent },
   { path: 'edit-tournaments', component: EditTournamentsComponent },
-  // { path: 'referee-overview', component:  },
+  { path: 'referee-overview', component: RefereeingOverviewComponent },
   // { path: 'referee-match', component:  },
 ];
 

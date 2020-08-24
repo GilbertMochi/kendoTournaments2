@@ -1,19 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatchManagerService } from 'src/app/shared/services/match-manager.service';
 import { LanguagesService } from 'src/app/shared/services/languages.service';
 import { TournamentManagerService } from 'src/app/shared/services/tournament-manager.service';
 import { Tournament } from 'src/app/shared/interfaces/tournament';
-import { localizedString } from '@angular/compiler/src/output/output_ast';
 
 @Component({
-  selector: 'app-edit-tournaments',
-  templateUrl: './edit-tournaments.component.html',
-  styleUrls: ['./edit-tournaments.component.scss']
+  selector: 'app-refereeing-overview',
+  templateUrl: './refereeing-overview.component.html',
+  styleUrls: ['./refereeing-overview.component.scss']
 })
-export class EditTournamentsComponent implements OnInit {
+export class RefereeingOverviewComponent implements OnInit {
+
   tournaments: Tournament[];
   loading: boolean;
-  
-  constructor(private tournamentService: TournamentManagerService, public language: LanguagesService) { }
+  tournamentPanelOpen: boolean = false;
+
+  constructor(
+    private tournamentService: TournamentManagerService,
+    public language: LanguagesService,
+    private matchManager: MatchManagerService,
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     this.loading = true;

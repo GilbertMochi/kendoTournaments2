@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Tournament } from 'src/app/shared/interfaces/tournament';
-import { DateTimeWithLocation } from 'src/app/shared/interfaces/date-time-with-location';
 import { Participant } from 'src/app/shared/interfaces/participant';
 import { Pool } from 'src/app/shared/interfaces/pool';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -10,7 +9,6 @@ import { LanguagesService } from 'src/app/shared/services/languages.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Match } from 'src/app/shared/interfaces/match';
 import { MatchManagerService } from 'src/app/shared/services/match-manager.service';
-import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-editable-tournament',
@@ -35,8 +33,7 @@ export class EditableTournamentComponent implements OnInit {
     public language: LanguagesService,
     private matchManager: MatchManagerService,
     private FB: FormBuilder,
-    private _snackBar: MatSnackBar,
-    private firestore: AngularFirestore) { }
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.localTournament = this.tournament;

@@ -157,5 +157,6 @@ export class LanguagesService {
     this.refereeText.push("Virheet:");//13
     this.refereeText.push("Kyllä");//14
     this.refereeText.push("Ei, sulje tämä ja palaa tarkistamaan ottelun tulos.");//15
+    this.refereeText.push("Avaa nähdäksesi turnauksen poolit ja ottelut.");//16
   }
 }

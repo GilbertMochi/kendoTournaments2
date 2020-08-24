@@ -18,6 +18,7 @@ import { EditTournamentsComponent } from './Management/Editing/edit-tournaments/
 import { EditableTournamentComponent } from './Management/Editing/editable-tournament/editable-tournament.component';
 import { EditableParticipantComponent } from './Management/Editing/editable-participant/editable-participant.component';
 import { EditablePoolComponent } from './Management/Editing/editable-pool/editable-pool.component';
+import { RefereeingOverviewComponent } from './Refereeing/refereeing-overview/refereeing-overview.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { EditablePoolComponent } from './Management/Editing/editable-pool/editab
     EditTournamentsComponent,
     EditableParticipantComponent,
     EditablePoolComponent,
+    RefereeingOverviewComponent,
   ],
   imports: [
     BrowserModule,
