@@ -22,6 +22,8 @@ import { RefereeingOverviewComponent } from './Refereeing/refereeing-overview/re
 import { PoolWithMatchesComponent } from './Refereeing/pool-with-matches/pool-with-matches.component';
 import { SelectableMatchComponent } from './Refereeing/selectable-match/selectable-match.component';
 import { TournamentWithPoolsAndMatchesComponent } from './Refereeing/tournament-with-pools-and-matches/tournament-with-pools-and-matches.component';
+import { RefereeMatchComponent } from './Refereeing/referee-match/referee-match.component';
+import { MatchConfirmationDialogComponent } from './Refereeing/match-confirmation-dialog/match-confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,10 @@ import { TournamentWithPoolsAndMatchesComponent } from './Refereeing/tournament-
     PoolWithMatchesComponent,
     SelectableMatchComponent,
     TournamentWithPoolsAndMatchesComponent,
+    RefereeMatchComponent,
+    MatchConfirmationDialogComponent,
   ],
+  entryComponents: [MatchConfirmationDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

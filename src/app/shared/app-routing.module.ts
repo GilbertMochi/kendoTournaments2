@@ -5,6 +5,7 @@ import { HomeComponent } from '../home/home.component';
 import { NewTournamentComponent } from '../Management/new-tournament/new-tournament.component';
 import { EditTournamentsComponent } from '../Management/Editing/edit-tournaments/edit-tournaments.component';
 import { RefereeingOverviewComponent } from '../Refereeing/refereeing-overview/refereeing-overview.component';
+import { RefereeMatchComponent } from '../Refereeing/referee-match/referee-match.component';
 
 
 const routes: Routes = [
@@ -14,7 +15,7 @@ const routes: Routes = [
   { path: 'add-tournaments', component: NewTournamentComponent },
   { path: 'edit-tournaments', component: EditTournamentsComponent },
   { path: 'referee-overview', component: RefereeingOverviewComponent },
-  // { path: 'referee-match', component:  },
+  { path: 'referee-match', component: RefereeMatchComponent },
 ];
 
 //to use naviagation use something like a link with routerLink as such: 

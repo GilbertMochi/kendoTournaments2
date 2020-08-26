@@ -22,10 +22,12 @@ export class RefereeingService {
     this.currentMatch.matchStarted = true;
     this.currentMatch.p1Score = new Score();
     this.currentMatch.p2Score = new Score();
+    this.updateMatchInFirestore();
   }
 
   endMatch() {
     this.currentMatch.matchOver = true;
+    this.updateMatchInFirestore();
     this.currentMatch = null;
   }
 
@@ -77,6 +79,7 @@ export class RefereeingService {
         break;
     }
 
+    console.log('updating match in firebase');
     this.updateMatchInFirestore();
   }
 
@@ -114,9 +117,24 @@ export class RefereeingService {
 
   updateMatchInFirestore() {
     if (this.currentMatch != null) {
+      this.printMatch();
       this.matchManager.updateMatch(this.currentMatch);
     }
   }
 
+  printMatch() {
+    console.log(this.currentMatch.id);
+    console.log(this.currentMatch.location);
+    console.log(this.currentMatch.matchOver);
+    console.log(this.currentMatch.matchStarted);
+    console.log(this.currentMatch.p1Score);
+    console.log(this.currentMatch.p2Score);
+    console.log(this.currentMatch.participant1);
+    console.log(this.currentMatch.participant2);
+    console.log(this.currentMatch.poolId);
+    console.log(this.currentMatch.time);
+    console.log(this.currentMatch.tournamentId);
+    console.log(this.currentMatch.winner);//winner is currently null and possibly causes the error in firebase
+  }
 
 }

@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>{{this.language.refereeText[7]}}</h2>
+<mat-dialog-content class="mat-typography">
+    <p>{{this.language.refereeText[8]}}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-stroked-button color="warn" mat-dialog-close>
+        {{this.language.refereeText[15]}}
+    </button>
+    <button mat-stroked-button color="primary" [mat-dialog-close]="true" cdkFocusInitial>
+        {{this.language.refereeText[14]}}
+    </button>
+</mat-dialog-actions>

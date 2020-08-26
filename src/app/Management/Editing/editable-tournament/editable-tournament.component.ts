@@ -178,10 +178,6 @@ export class EditableTournamentComponent implements OnInit {
     this.localTournament.pools.push({
       name: poolname,
       id: poolid,
-      matchesInfo: [],
-      participants: [],
-      winner: null,
-      second: null
     });
     //after adding the pool empty the text boxes
     this.tournamentForm.get('poolname').reset();

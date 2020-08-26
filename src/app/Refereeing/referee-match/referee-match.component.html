@@ -1,0 +1,151 @@
+<mat-card *ngIf="match!=null;else error">
+    <mat-card-header>
+        <mat-card-title>
+            {{this.match.id}}
+        </mat-card-title>
+        <mat-card-subtitle>
+            {{this.language.miscellanousText[17]}} {{this.match.location}}
+        </mat-card-subtitle>
+        <mat-card-subtitle>
+            {{this.language.miscellanousText[13]}} {{this.match.time}}
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="scores">
+            <div class="playerScore">
+                <div class="section">
+                    <h1>{{this.match.participant1.firstname}} {{this.match.participant1.lastname}}</h1>
+                    <h1>{{this.match.p1Score.hitScore}}</h1>
+                </div>
+                <div class="section">
+                    <mat-list role="list" class="scorePoints">
+                        <h3>{{this.language.refereeText[12]}}</h3>
+                        <mat-list-item *ngFor="let point of this.match.p1Score.hits" role="listitem">
+                            {{point.getPointTypeAsString(point.point_type)}}, {{this.language.miscellanousText[13]}}
+                            {{point.time | date:'mediumTime'}}
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <div class="section">
+                    <mat-list role="list" class="scorePoints">
+                        <h3>{{this.language.refereeText[13]}}</h3>
+                        <mat-list-item *ngFor="let fault of this.match.p1Score.faults" role="listitem">
+                            {{fault.getPointTypeAsString(fault.point_type)}}, {{this.language.miscellanousText[13]}}
+                            {{fault.time | date:'mediumTime'}}
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <!-- point buttons -->
+                <div class="section">
+                    <div class="pointButtonRow">
+                        <h3>{{this.language.refereeText[5]}}</h3>
+                        <button mat-stroked-button color="primary" (click)="givePoint('men', 1)">
+                            MEN
+                        </button>
+                        <button mat-stroked-button color="primary" (click)="givePoint('kote', 1)">
+                            KOTE
+                        </button>
+                        <button mat-stroked-button color="primary" (click)="givePoint('do',1)">
+                            DO
+                        </button>
+                        <button mat-stroked-button color="primary" (click)="givePoint('tsuki',1)">
+                            TSUKI
+                        </button>
+                    </div>
+                    <!-- after opponent has made two faults give the point to this player button -->
+                    <div class="pointButtonRow">
+                        <button mat-flat-button color="accent" (click)="givePoint('ippon',1)">
+                            IPPON
+                        </button>
+                    </div>
+                </div>
+                <!-- fault button -->
+                <div class="section">
+                    <div class="pointButtonRow">
+                        <h3>{{this.language.refereeText[6]}}</h3>
+                        <button mat-flat-button color="warn" (click)="giveFault(1)" aria-label="icon button for faults">
+                            <mat-icon>change_history</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="playerScore">
+                <div class="section">
+                    <h1>{{this.match.participant2.firstname}} {{this.match.participant2.lastname}}</h1>
+                    <h1>{{this.match.p2Score.hitScore}}</h1>
+                </div>
+                <div class="section">
+                    <mat-list role="list" class="scorePoints">
+                        <h3>{{this.language.refereeText[12]}}</h3>
+                        <mat-list-item *ngFor="let point of this.match.p2Score.hits" role="listitem">
+                            {{point.getPointTypeAsString(point.point_type)}}, {{this.language.miscellanousText[13]}}
+                            {{point.time | date:'mediumTime'}}
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <div class="section">
+                    <mat-list role="list" class="scorePoints">
+                        <h3>{{this.language.refereeText[13]}}</h3>
+                        <mat-list-item *ngFor="let fault of this.match.p2Score.faults" role="listitem">
+                            {{fault.getPointTypeAsString(fault.point_type)}}, {{this.language.miscellanousText[13]}}
+                            {{fault.time | date:'mediumTime'}}
+                        </mat-list-item>
+                    </mat-list>
+                </div>
+                <!-- point buttons -->
+                <div class="section">
+                    <div class="pointButtonRow">
+                        <h3>{{this.language.refereeText[5]}}</h3>
+                        <button mat-stroked-button color="primary" (click)="givePoint('men', 2)">
+                            MEN
+                        </button>
+                        <button mat-stroked-button color="primary" (click)="givePoint('kote', 2)">
+                            KOTE
+                        </button>
+                        <button mat-stroked-button color="primary" (click)="givePoint('do',2)">
+                            DO
+                        </button>
+                        <button mat-stroked-button color="primary" (click)="givePoint('tsuki',2)">
+                            TSUKI
+                        </button>
+                    </div>
+                    <!-- after opponent has made two faults give the point to this player button -->
+                    <div class="pointButtonRow">
+                        <button mat-flat-button color="accent" (click)="givePoint('ippon',2)">
+                            IPPON
+                        </button>
+                    </div>
+                </div>
+                <!-- fault button -->
+                <div class="section">
+                    <div class="pointButtonRow">
+                        <h3>{{this.language.refereeText[6]}}</h3>
+                        <button mat-flat-button color="warn" (click)="giveFault(2)" aria-label="icon button for faults">
+                            <mat-icon>change_history</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <!--Ending the match-->
+        <button mat-raised-button class="endBtn" color="primary" (click)="openConfirmationDialog()">
+            {{this.language.refereeText[7]}}
+        </button>
+    </mat-card-actions>
+</mat-card>
+<ng-template #error>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>{{this.language.refereeText[10]}}</mat-card-title>
+            <mat-card-subtitle>{{this.language.refereeText[11]}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+            <button mat-stroked-button class="endBtn" color="primary" (click)="goBack()">
+                <mat-icon>arrow_back</mat-icon>
+                {{this.language.refereeText[9]}}
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</ng-template>

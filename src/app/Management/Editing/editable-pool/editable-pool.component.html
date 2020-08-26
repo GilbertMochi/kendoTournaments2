@@ -166,8 +166,8 @@
                             <mat-panel-description>
                             </mat-panel-description>
                         </mat-expansion-panel-header>
-                        <!--editable match-->
-                        <div class="addedMatches" *ngFor="let m of this.matches">
+                        <!--added matches for this pool-->
+                        <div class="addedMatches" *ngFor="let m of this.matchesForThisPool">
                             <h3><strong>{{this.language.miscellanousText[14]}} {{m.id}}</strong></h3>
                             <h4>{{this.language.miscellanousText[17]}} {{m.location}}</h4>
                             <h4>{{this.language.miscellanousText[13]}} {{m.time}}</h4>

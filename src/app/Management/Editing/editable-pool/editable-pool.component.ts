@@ -69,7 +69,7 @@ export class EditablePoolComponent implements OnInit {
     this.localPool = this.pool;
     this.initialisePoolForm();
 
-    this.localPool.matchesInfo = this.matchesForThisPool;
+    console.log(this.matchesForThisPool);
   }
 
   initialisePoolForm() {
@@ -131,8 +131,7 @@ export class EditablePoolComponent implements OnInit {
   }
 
   deleteMatch(i) {
-    this.matchManager.deleteMatch(this.localPool.matchesInfo[i]);
-    this.localPool.matchesInfo.splice(i, 1);
+
   }
 
   addLocalMatch() {
@@ -146,7 +145,6 @@ export class EditablePoolComponent implements OnInit {
       time: this.newMatchTime,
       p1Score: null,
       p2Score: null,
-      winner: null,
       matchStarted: false,
       matchOver: false,
     };
