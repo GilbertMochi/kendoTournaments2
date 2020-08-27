@@ -54,7 +54,7 @@ export class EditablePoolComponent implements OnInit {
         //if the match belongs to this tournament and pool
         if (data.tournamentId == this.tournamentId && data.poolId == this.pool.id) {
           data.id = d.payload.doc.id;
-          console.log('added match' + data.id + ' from firestore to pool' + this.pool.id);
+          console.log('added match ' + data.id + ' from firestore to pool' + this.pool.id);
           this.matchesForThisPool.push(data.id);
           return data;
         }
@@ -69,8 +69,17 @@ export class EditablePoolComponent implements OnInit {
     this.localPool = this.pool;
     this.initialisePoolForm();
 
-    console.log(this.matchesForThisPool);
+    if (this.matchesForThisPool.length > 0) {
+      console.log('there should be matches in the pool:' + this.pool.id);
+    }
   }
+
+printMatch(m:Match){
+  console.log(m.id);
+  console.log(m.location);
+  console.log(m.participant1);
+  console.log(m.participant2);
+}
 
   initialisePoolForm() {
     this.poolForm = this.FB.group({

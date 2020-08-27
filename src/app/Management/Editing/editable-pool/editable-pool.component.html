@@ -132,8 +132,8 @@
                             </button></mat-list-item>
                         <mat-list-item *ngIf="this.localPool.second!=null">{{this.language.poolsText[11]}}:
                             {{this.localPool.second.firstname}}
-                            {{this.localPool.second.lastname}} {{this.localPool.second.rank}}<button mat-icon-button
-                                color="warn" (click)="removeSecond()">
+                            {{this.localPool.second.lastname}} {{this.localPool.second.rank}}
+                            <button mat-icon-button color="warn" (click)="removeSecond()">
                                 <mat-icon>delete_forever</mat-icon>
                             </button></mat-list-item>
                     </mat-list>
@@ -144,7 +144,7 @@
             </mat-card-content>
         </mat-card>
 
-        <!-- add new match -->
+        <!-- adding a new match -->
         <mat-card>
             <mat-card-header>
                 <mat-card-title>
@@ -168,6 +168,8 @@
                         </mat-expansion-panel-header>
                         <!--added matches for this pool-->
                         <div class="addedMatches" *ngFor="let m of this.matchesForThisPool">
+                            <!--for whatevere reason the match is undefined-->
+                            <button (click)="printMatch(m)">test print</button>
                             <h3><strong>{{this.language.miscellanousText[14]}} {{m.id}}</strong></h3>
                             <h4>{{this.language.miscellanousText[17]}} {{m.location}}</h4>
                             <h4>{{this.language.miscellanousText[13]}} {{m.time}}</h4>

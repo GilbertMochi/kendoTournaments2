@@ -187,10 +187,7 @@ export class NewTournamentComponent implements OnInit {
       this.pools.push({
         name: this.poolname,
         id: this.poolId,
-        matchesInfo: [],
         participants: [],
-        winner: null,
-        second: null
       });
     }
     this.resetFormControl('poolname');
