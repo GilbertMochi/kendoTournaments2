@@ -32,7 +32,7 @@ export class EditablePoolComponent implements OnInit {
 
   localPool: Pool;
   matches: Match[] = [];
-  matchesForThisPool: string[] = [];
+  matchesForThisPool: Match[] = [];
 
   poolForm: FormGroup;
   newMatchForm: FormGroup;
@@ -55,7 +55,7 @@ export class EditablePoolComponent implements OnInit {
         if (data.tournamentId == this.tournamentId && data.poolId == this.pool.id) {
           data.id = d.payload.doc.id;
           console.log('added match ' + data.id + ' from firestore to pool' + this.pool.id);
-          this.matchesForThisPool.push(data.id);
+          this.matchesForThisPool.push(data);
           return data;
         }
       });
