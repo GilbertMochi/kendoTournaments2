@@ -22,12 +22,13 @@ export class RefereeingService {
     this.currentMatch.matchStarted = true;
     this.currentMatch.p1Score = new Score();
     this.currentMatch.p2Score = new Score();
-    this.updateMatchInFirestore();
+    this.printMatch(m);
+    this.updateMatchInFirestore(m);
   }
 
   endMatch() {
     this.currentMatch.matchOver = true;
-    this.updateMatchInFirestore();
+    this.updateMatchInFirestore(this.currentMatch);
     this.currentMatch = null;
   }
 
@@ -80,7 +81,7 @@ export class RefereeingService {
     }
 
     console.log('updating match in firebase');
-    this.updateMatchInFirestore();
+    this.updateMatchInFirestore(this.currentMatch);
   }
 
   givePenalty(playerNum: number) {
@@ -112,29 +113,29 @@ export class RefereeingService {
       }
     }
 
-    this.updateMatchInFirestore();
+    this.updateMatchInFirestore(this.currentMatch);
   }
 
-  updateMatchInFirestore() {
-    if (this.currentMatch != null) {
-      this.printMatch();
-      this.matchManager.updateMatch(this.currentMatch);
+  updateMatchInFirestore(m: Match) {
+    if (m != null) {
+      this.printMatch(m);
+      this.matchManager.updateMatch(m);
     }
   }
 
-  printMatch() {
-    console.log(this.currentMatch.id);
-    console.log(this.currentMatch.location);
-    console.log(this.currentMatch.matchOver);
-    console.log(this.currentMatch.matchStarted);
-    console.log(this.currentMatch.p1Score);
-    console.log(this.currentMatch.p2Score);
-    console.log(this.currentMatch.participant1);
-    console.log(this.currentMatch.participant2);
-    console.log(this.currentMatch.poolId);
-    console.log(this.currentMatch.time);
-    console.log(this.currentMatch.tournamentId);
-    console.log(this.currentMatch.winner);//winner is currently null and possibly causes the error in firebase
+  printMatch(m: Match) {
+    console.log(m.id);
+    console.log(m.location);
+    console.log(m.matchOver);
+    console.log(m.matchStarted);
+    console.log(m.p1Score);
+    console.log(m.p2Score);
+    console.log(m.participant1);
+    console.log(m.participant2);
+    console.log(m.poolId);
+    console.log(m.time);
+    console.log(m.tournamentId);
+    console.log(m.winner);//winner is currently null and possibly causes the error in firebase
   }
 
 }
