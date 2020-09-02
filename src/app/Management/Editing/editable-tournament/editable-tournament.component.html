@@ -142,7 +142,8 @@
                                     <app-editable-pool [pool]="item" [tournamentId]="this.tournament.id"
                                         [participants]="this.localTournament.participants"
                                         [dates]="this.localTournament.dates" (updatePool)='updatePool($event, i);'
-                                        (addedLocalMatch)='addedLocalMatch($event);'>
+                                        (addedLocalMatch)='addedLocalMatch($event);'
+                                        (addedMatchToDelete)='addedMatchToDelete($event)'>
                                     </app-editable-pool>
 
                                     <button mat-stroked-button color="warn" class="deleteItemBtn"

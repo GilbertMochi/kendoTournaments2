@@ -6,6 +6,7 @@ import { Match } from 'src/app/shared/interfaces/match';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatchManagerService } from 'src/app/shared/services/match-manager.service';
 import { LanguagesService } from 'src/app/shared/services/languages.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-editable-pool',
@@ -20,6 +21,7 @@ export class EditablePoolComponent implements OnInit {
   @Input() dates: DateTimeWithLocation[];
   @Output() updatePool = new EventEmitter<Pool>();
   @Output() addedLocalMatch = new EventEmitter<Match>();
+  @Output() addedMatchToDelete = new EventEmitter<Match>();
 
   isEdit: boolean = false;
   addNewMatch: boolean = false;
@@ -44,7 +46,11 @@ export class EditablePoolComponent implements OnInit {
   newMatchLocation: string;
   newMatchTime: string;
 
-  constructor(private matchManager: MatchManagerService, public language: LanguagesService, private FB: FormBuilder) { }
+  constructor(private matchManager: MatchManagerService,
+    public language: LanguagesService,
+    private FB: FormBuilder,
+    private snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
     //get all the matches for this pool from firebase
@@ -54,10 +60,10 @@ export class EditablePoolComponent implements OnInit {
         //if the match belongs to this tournament and pool
         if (data.tournamentId == this.tournamentId && data.poolId == this.pool.id) {
           data.id = d.payload.doc.id;
-          console.log('added match ' + data.id + ' from firestore to pool' + this.pool.id);
-          this.matchesForThisPool.push(data);
-          return data;
+          // console.log('match with id ' + data.id + 'was found and should belong to pool ' + this.pool.name);
+          this.addMatchToArray(data);
         }
+        return data;
       });
     });
 
@@ -68,18 +74,27 @@ export class EditablePoolComponent implements OnInit {
 
     this.localPool = this.pool;
     this.initialisePoolForm();
+  }
 
-    if (this.matchesForThisPool.length > 0) {
-      console.log('there should be matches in the pool:' + this.pool.id);
+  addMatchToArray(m: Match) {
+    const index = this.matchesForThisPool.findIndex((e) => e.id === m.id);
+    if (index == -1) //match wasn't found so add new  
+    {
+      // console.log('adding new match: ' + m.id);
+      this.matchesForThisPool.push(m);
+    }
+    else //match already exists, so update the old
+    {
+      // console.log('updating old match at index: ' + index);
+      this.matchesForThisPool[index] = m;
     }
   }
 
-printMatch(m:Match){
-  console.log(m.id);
-  console.log(m.location);
-  console.log(m.participant1);
-  console.log(m.participant2);
-}
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 7000,
+    });
+  }
 
   initialisePoolForm() {
     this.poolForm = this.FB.group({
@@ -96,7 +111,7 @@ printMatch(m:Match){
     this.poolPanelOpen = true;
   }
 
-  saveChanges() {
+  savePoolChanges() {
     this.getPoolValues();
     this.updatePool.emit(this.localPool);//changes back to parent
     this.isEdit = false;
@@ -139,8 +154,10 @@ printMatch(m:Match){
     this.matchManager.updateMatch(m)
   }
 
-  deleteMatch(i) {
-
+  deleteLocalMatch(m: Match, i) {
+    this.addedMatchToDelete.emit(m);
+    this.matchesForThisPool.splice(i, 1);
+    this.openSnackBar(this.language.matchesText[22], this.language.miscellanousText[24]);
   }
 
   addLocalMatch() {
@@ -159,6 +176,7 @@ printMatch(m:Match){
     };
     this.addedLocalMatch.emit(m);//local match back to editable tournament
     this.resetMatchForm();
+    this.openSnackBar(this.language.matchesText[21], this.language.miscellanousText[24]);
   }
 
   canAddMatch(): boolean {

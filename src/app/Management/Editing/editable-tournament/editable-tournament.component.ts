@@ -27,6 +27,7 @@ export class EditableTournamentComponent implements OnInit {
   localTournament: Tournament;
 
   localMatches: Match[] = [];
+  matchesToDeleteFromFirebase: Match[] = [];
 
   constructor(private router: Router,
     private tournamentService: TournamentManagerService,
@@ -56,8 +57,9 @@ export class EditableTournamentComponent implements OnInit {
     this.tournamentForm.get('tournamentname').setValue(this.tournament.name);
   }
 
-  saveChanges() {
+  async saveChanges() {
     this.addMatches();
+    await this.deleteMatchesFromFirebase();
     this.tournamentService.updateTournament(this.localTournament);
     this.isEdit = false;
     this.resetTournamentForm();
@@ -178,7 +180,7 @@ export class EditableTournamentComponent implements OnInit {
     this.localTournament.pools.push({
       name: poolname,
       id: poolid,
-      participants:[]
+      participants: []
     });
     //after adding the pool empty the text boxes
     this.tournamentForm.get('poolname').reset();
@@ -197,6 +199,20 @@ export class EditableTournamentComponent implements OnInit {
 
   addedLocalMatch(m: Match) {
     this.localMatches.push(m);
+  }
+
+  addedMatchToDelete(m: Match) {
+    this.matchesToDeleteFromFirebase.push(m);
+  }
+
+  deleteMatchesFromFirebase() {//should be done when sacing changes
+    this.matchesToDeleteFromFirebase.forEach(m => {
+      //delete match
+      this.matchManager.deleteMatch(m.id);
+    });
+
+    this.openSnackBar(this.language.matchesText[23], this.language.miscellanousText[24]);
+    this.matchesToDeleteFromFirebase = [];//after all matches have been deleted, make the array empty, just in case
   }
 
   async addMatches() {

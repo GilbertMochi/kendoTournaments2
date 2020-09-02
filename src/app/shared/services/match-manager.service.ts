@@ -16,7 +16,8 @@ export class MatchManagerService {
   createMatch(match: Match): string {
     var id;
     this.firestore.collection('Matches').add(match).then(function (docRef) {
-      id = docRef.id; console.log('id should be: ' + id)
+      id = docRef.id; 
+      //console.log('id should be: ' + id);
     }).catch(function (error) { console.error(error) });
     return id;
   }

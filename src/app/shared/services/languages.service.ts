@@ -52,6 +52,7 @@ export class LanguagesService {
     this.miscellanousText.push("Palauttaa takaisin toiminto näkymään.");//21
     this.miscellanousText.push("Tallentaa turnauksen tietokantaan.");//22
     this.miscellanousText.push("Muutokset tallennettu.");//23
+    this.miscellanousText.push("OK");//24
   }
 
   private getTournamentDatesTexts() {
@@ -124,6 +125,9 @@ export class LanguagesService {
     this.matchesText.push('Tyhjät ottelut tulee lisätä pooliin ennen kuin niille voi asettaa kilpailijat ja muut tiedot. Tämän jälkeen muutokset pitää tallentaa.');//18
     this.matchesText.push('Lisää ottelu');//19
     this.matchesText.push('Lisätyt ottelut');//20
+    this.matchesText.push('Tallenna muutokset, jotta uusi ottelu tallentuu tietokantaan ja tulee näkyviin listalle.');//21
+    this.matchesText.push('Tallenna muutokset, jotta poistetut ottelut poistuvat tietokannastakin.');//22
+    this.matchesText.push('Ottelut on nyt poistettu tietokannastakin.');//23
   }
 
   private getDashboardText() {

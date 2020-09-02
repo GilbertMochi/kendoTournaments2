@@ -110,7 +110,7 @@
             <mat-card-actions>
                 <!--button for saving the pool edit-->
                 <button class="editButton" mat-stroked-button color="primary" [disabled]="!canSubmit()"
-                    (click)="saveChanges()">{{this.language.miscellanousText[1]}}</button>
+                    (click)="savePoolChanges()">{{this.language.miscellanousText[1]}}</button>
                 <button class="editButton" mat-stroked-button color="warn"
                     (click)="cancelChanges()">{{this.language.miscellanousText[2]}}</button>
             </mat-card-actions>
@@ -135,7 +135,8 @@
                             {{this.localPool.second.lastname}} {{this.localPool.second.rank}}
                             <button mat-icon-button color="warn" (click)="removeSecond()">
                                 <mat-icon>delete_forever</mat-icon>
-                            </button></mat-list-item>
+                            </button>
+                        </mat-list-item>
                     </mat-list>
                 </mat-card-subtitle>
             </mat-card-header>
@@ -167,9 +168,7 @@
                             </mat-panel-description>
                         </mat-expansion-panel-header>
                         <!--added matches for this pool-->
-                        <div class="addedMatches" *ngFor="let m of this.matchesForThisPool">
-                            <!--for whatevere reason the match is undefined-->
-                            <button (click)="printMatch(m)">test print</button>
+                        <div class="addedMatches" *ngFor="let m of this.matchesForThisPool;let i=index;">
                             <h3><strong>{{this.language.miscellanousText[14]}} {{m.id}}</strong></h3>
                             <h4>{{this.language.miscellanousText[17]}} {{m.location}}</h4>
                             <h4>{{this.language.miscellanousText[13]}} {{m.time}}</h4>
@@ -178,6 +177,9 @@
                             </p>
                             <p>{{m.participant2.firstname}} {{m.participant2.lastname}} {{m.participant2.rank}}
                             </p>
+                            <button mat-stroked-button color="warn" (click)="this.deleteLocalMatch(m, i)">
+                                {{this.language.miscellanousText[4]}} <mat-icon>delete_forever</mat-icon>
+                            </button>
                         </div>
                     </mat-expansion-panel>
                 </mat-accordion>
