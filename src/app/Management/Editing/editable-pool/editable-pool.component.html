@@ -170,6 +170,8 @@
                         <!--added matches for this pool-->
                         <div class="addedMatches" *ngFor="let m of this.matchesForThisPool;let i=index;">
                             <h3><strong>{{this.language.miscellanousText[14]}} {{m.id}}</strong></h3>
+                            <p class="matchStarted" *ngIf="m.matchStarted && !m.matchOver">{{this.language.matchesText[24]}}</p>
+                            <p class="matchOver" *ngIf="m.matchStarted && m.matchOver">{{this.language.matchesText[25]}}</p>
                             <h4>{{this.language.miscellanousText[17]}} {{m.location}}</h4>
                             <h4>{{this.language.miscellanousText[13]}} {{m.time}}</h4>
                             <p><strong>{{this.language.participantsText[0]}}</strong></p>
@@ -177,7 +179,9 @@
                             </p>
                             <p>{{m.participant2.firstname}} {{m.participant2.lastname}} {{m.participant2.rank}}
                             </p>
-                            <button mat-stroked-button color="warn" (click)="this.deleteLocalMatch(m, i)">
+                            <!--matches can be deleted indivdually only if they haven't started or haven't been ended-->
+                            <button *ngIf="!m.matchStarted && !m.matchOver" mat-stroked-button color="warn"
+                                (click)="this.deleteLocalMatch(m, i)">
                                 {{this.language.miscellanousText[4]}} <mat-icon>delete_forever</mat-icon>
                             </button>
                         </div>

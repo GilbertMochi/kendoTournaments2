@@ -128,6 +128,8 @@ export class LanguagesService {
     this.matchesText.push('Tallenna muutokset, jotta uusi ottelu tallentuu tietokantaan ja tulee näkyviin listalle.');//21
     this.matchesText.push('Tallenna muutokset, jotta poistetut ottelut poistuvat tietokannastakin.');//22
     this.matchesText.push('Ottelut on nyt poistettu tietokannastakin.');//23
+    this.matchesText.push('Ottelu on käynnissä.');//24 
+    this.matchesText.push('Ottelu on ohi.');//25
   }
 
   private getDashboardText() {
