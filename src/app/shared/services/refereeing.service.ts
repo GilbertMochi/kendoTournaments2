@@ -22,8 +22,8 @@ export class RefereeingService {
     this.currentMatch.matchStarted = true;
     this.currentMatch.p1Score = new Score();
     this.currentMatch.p2Score = new Score();
-    this.printMatch(m);
-    this.updateMatchInFirestore(m);
+    this.printMatch(this.currentMatch);
+    this.updateMatchInFirestore(this.currentMatch);
   }
 
   endMatch() {
@@ -135,7 +135,7 @@ export class RefereeingService {
     console.log(m.poolId);
     console.log(m.time);
     console.log(m.tournamentId);
-    console.log(m.winner);//winner is currently null and possibly causes the error in firebase
+    // console.log(m.winner);//winner is currently null and possibly causes the error in firebase
   }
 
 }
