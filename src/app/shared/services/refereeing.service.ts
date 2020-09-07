@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Match } from '../interfaces/match';
-import { Score } from '../interfaces/score';
+import { Score, IScore } from '../interfaces/score';
 import { PointTypes } from '../PointTypes';
 import { MatchManagerService } from './match-manager.service';
+import { Participant } from '../interfaces/participant';
 
 @Injectable({
   providedIn: 'root'
@@ -22,12 +23,13 @@ export class RefereeingService {
     this.currentMatch.matchStarted = true;
     this.currentMatch.p1Score = new Score();
     this.currentMatch.p2Score = new Score();
-    this.printMatch(this.currentMatch);
+    //this.printMatch(this.currentMatch);
     this.updateMatchInFirestore(this.currentMatch);
   }
 
-  endMatch() {
+  endMatch(winner: Participant) {
     this.currentMatch.matchOver = true;
+    this.currentMatch.winner = winner;
     this.updateMatchInFirestore(this.currentMatch);
     this.currentMatch = null;
   }
@@ -80,7 +82,7 @@ export class RefereeingService {
         break;
     }
 
-    console.log('updating match in firebase');
+    //console.log('updating match in firebase');
     this.updateMatchInFirestore(this.currentMatch);
   }
 
@@ -118,7 +120,7 @@ export class RefereeingService {
 
   updateMatchInFirestore(m: Match) {
     if (m != null) {
-      this.printMatch(m);
+      //this.printMatch(m);
       this.matchManager.updateMatch(m);
     }
   }

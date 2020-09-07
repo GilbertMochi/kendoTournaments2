@@ -38,6 +38,7 @@ export class EditableTournamentComponent implements OnInit {
 
   ngOnInit(): void {
     this.localTournament = this.tournament;
+    this.localTournament.tournamentOver
 
     this.tournamentForm = this.FB.group({
       tournamentname: ['', Validators.required],
@@ -93,6 +94,20 @@ export class EditableTournamentComponent implements OnInit {
       this.tournamentService.deleteTournament(id);
     }
     this.openSnackBar(this.language.miscellanousText[5], this.language.miscellanousText[6]);
+  }
+
+  startTournament() {
+    this.localTournament.tournamentStarted = true;
+    this.tournamentService.startTournament(this.localTournament.id);
+  }
+
+  endTournament() {
+    this.localTournament.tournamentOver = true;
+    this.tournamentService.endTournament(this.localTournament.id);
+  }
+
+  resetTournamentStartAndEnded() {
+    this.tournamentService.resetTorunamentStartedAndOver(this.localTournament.id);
   }
 
   getTournamentName() {
@@ -190,6 +205,15 @@ export class EditableTournamentComponent implements OnInit {
   deletePool(i) {
     //delete all of this pool's matches as well
     console.warn('remember to delete the matches for this pool as well!');
+    //add all the matches for this pool to delete array
+    this.localMatches.forEach(e => {
+      if (e.poolId == this.localTournament.pools[i].id && e.tournamentId == this.localTournament.id) {
+        //if match hasn't been added to delete yet
+        if (!this.matchesToDeleteFromFirebase.includes(e)) {
+          this.matchesToDeleteFromFirebase.push(e);
+        }
+      }
+    });
     this.localTournament.pools.splice(i, 1);
   }
 
@@ -205,7 +229,7 @@ export class EditableTournamentComponent implements OnInit {
     this.matchesToDeleteFromFirebase.push(m);
   }
 
-  deleteMatchesFromFirebase() {//should be done when sacing changes
+  deleteMatchesFromFirebase() {//should be done when saving changes
     this.matchesToDeleteFromFirebase.forEach(m => {
       //delete match
       this.matchManager.deleteMatch(m.id);
@@ -220,7 +244,7 @@ export class EditableTournamentComponent implements OnInit {
     for (let i = 0; i < this.localTournament.pools.length; i++) {
       //loop through all local matches
       for (let j = 0; j < this.localMatches.length; j++) {
-        //check which pool the match belongs to and add the match info to the pools match info array
+        //check which pool the match belongs to and add the match
         if (this.localTournament.pools[i].id == this.localMatches[j].poolId) {
 
           this.matchManager.createMatch(this.localMatches[j]);

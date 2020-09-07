@@ -1,4 +1,4 @@
-<mat-accordion>
+<mat-accordion *ngIf="this.tournament">
     <mat-expansion-panel (opened)="tournamentPanelOpen = true" (closed)="tournamentPanelOpen = false">
         <mat-expansion-panel-header>
             <mat-panel-title>

@@ -10,6 +10,16 @@
                 {{this.language.miscellanousText[0]}}
                 <mat-icon>create</mat-icon>
             </button>
+            <button *ngIf="!this.localTournament.tournamentStarted && !this.localTournament.tournamentOver"
+                mat-stroked-button color="accent" class="editBtn" [matTooltip]="this.language.miscellanousText[26]"
+                (click)="startTournament()">
+                {{this.language.miscellanousText[25]}}
+            </button>
+            <button *ngIf="this.localTournament.tournamentStarted && !this.localTournament.tournamentOver"
+                mat-stroked-button color="accent" class="editBtn" [matTooltip]="this.language.miscellanousText[28]"
+                (click)="endTournament()">
+                {{this.language.miscellanousText[27]}}
+            </button>
             <button mat-stroked-button color="warn" class="deleteTournamentBtn"
                 (click)="deleteTournament(this.tournament.id)">
                 {{this.language.miscellanousText[4]}}
@@ -173,6 +183,14 @@
 
                         <button mat-icon-button color="primary" [disabled]="!canAddPool()" (click)="addPool()">
                             <mat-icon>add_circle</mat-icon>
+                        </button>
+                    </div>
+
+                    <div class="formBlock"
+                        *ngIf="this.localTournament.tournamentStarted || this.localTournament.tournamentOver">
+                        <button mat-stroked-button color="accent" [matTooltip]="this.language.miscellanousText[29]"
+                            (click)="resetTournamentStartAndEnded()">
+                            {{this.language.miscellanousText[30]}}
                         </button>
                     </div>
 

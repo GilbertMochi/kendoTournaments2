@@ -30,7 +30,7 @@ export class PoolWithMatchesComponent implements OnInit {
         if (data.tournamentId == this.tournamentId && data.poolId == this.pool.id) {
           data.id = d.payload.doc.id;
           this.matchesForThisPool.push(data);
-          console.log("matches should have been added");
+          //console.log("matches should have been added");
           return data;
         }
       });

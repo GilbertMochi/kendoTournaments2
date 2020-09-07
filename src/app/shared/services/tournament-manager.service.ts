@@ -6,7 +6,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
   providedIn: 'root'
 })
 export class TournamentManagerService {
-  
+
   constructor(private firestore: AngularFirestore) { }
 
   getTournaments() {
@@ -23,5 +23,17 @@ export class TournamentManagerService {
 
   deleteTournament(id: string) {
     this.firestore.doc('Tournaments/' + id).delete();
+  }
+
+  startTournament(id: string) {
+    this.firestore.doc('Tournaments/' + id).update({ tournamentStarted: true });
+  }
+
+  endTournament(id: string) {
+    this.firestore.doc('Tournaments/' + id).update({ tournamentOver: true });
+  }
+
+  resetTorunamentStartedAndOver(id: string) {
+    this.firestore.doc('Tournaments/' + id).update({ tournamentStarted: false, tournamentOver: false });
   }
 }

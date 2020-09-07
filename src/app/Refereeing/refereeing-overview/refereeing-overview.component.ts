@@ -11,6 +11,7 @@ import { Tournament } from 'src/app/shared/interfaces/tournament';
 export class RefereeingOverviewComponent implements OnInit {
 
   tournaments: Tournament[];
+  ongoingTournaments: Tournament[];
   loading: boolean;
 
   constructor(
@@ -19,6 +20,8 @@ export class RefereeingOverviewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.ongoingTournaments = [];
+
     this.loading = true;
     //get all the tournaments from firebase
     this.tournamentService.getTournaments().subscribe(data => {
@@ -27,7 +30,26 @@ export class RefereeingOverviewComponent implements OnInit {
         data.id = d.payload.doc.id;
         return data;
       });
+      this.tournaments.forEach(e => {
+        if (e.tournamentStarted && !e.tournamentOver) {
+          this.addOngoingTournament(e);
+        }
+      });
     });
     this.loading = false;
   }
+
+  addOngoingTournament(t: Tournament) {
+    if (!this.ongoingTournaments.includes(t)) {
+      this.ongoingTournaments.push(t);
+    }
+  }
+
+  tournamentsEmpty(): boolean {
+    if (this.ongoingTournaments == null || this.ongoingTournaments.length < 1) {
+      return true;
+    }
+    return false;
+  }
+
 }

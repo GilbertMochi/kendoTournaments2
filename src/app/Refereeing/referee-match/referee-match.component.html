@@ -127,10 +127,24 @@
                 </div>
             </div>
         </div>
+        <div>
+            <!-- winner selection -->
+            <mat-form-field appearance="fill">
+                <mat-label>{{this.language.matchesText[7]}}</mat-label>
+                <mat-select [(value)]="winner">
+                    <mat-option *ngFor="let participant of this.participants" [value]="participant">
+                        {{participant.firstname}} {{participant.lastname}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="this.winner==null">{{this.language.matchesText[26]}}
+                </mat-error>
+            </mat-form-field>
+        </div>
     </mat-card-content>
     <mat-card-actions>
         <!--Ending the match-->
-        <button mat-raised-button class="endBtn" color="primary" (click)="openConfirmationDialog()">
+        <button mat-raised-button class="endBtn" color="primary" [disabled]="winner==null"
+            (click)="openConfirmationDialog()">
             {{this.language.refereeText[7]}}
         </button>
     </mat-card-actions>

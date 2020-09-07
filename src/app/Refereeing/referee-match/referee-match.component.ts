@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Match } from 'src/app/shared/interfaces/match';
 import { MatchConfirmationDialogComponent } from '../match-confirmation-dialog/match-confirmation-dialog.component';
+import { Participant } from 'src/app/shared/interfaces/participant';
 
 @Component({
   selector: 'app-referee-match',
@@ -14,12 +15,20 @@ import { MatchConfirmationDialogComponent } from '../match-confirmation-dialog/m
 export class RefereeMatchComponent implements OnInit {
 
   match: Match;
+  winner: Participant;
+  participants: Participant[];
 
   constructor(private router: Router, private referee: RefereeingService, public language: LanguagesService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
+    this.participants = [];
+
     if (this.referee.currentMatch != null) {
       this.match = this.referee.currentMatch;
+
+      //push both participants to array to use in the dropdown selection
+      this.participants.push(this.match.participant1);
+      this.participants.push(this.match.participant2);
     }
   }
 
@@ -36,20 +45,22 @@ export class RefereeMatchComponent implements OnInit {
   }
 
   endMatchAndGoBack() {
-    this.referee.endMatch();
-    this.router.navigate(['/referee-overview']);
+    if (this.winner != null) {
+      this.referee.endMatch(this.winner);
+      this.router.navigate(['/referee-overview']);
+    }
   }
 
   goBack() {
     this.router.navigate(['/referee-overview']);
   }
 
-  giveFault(playerNum:number) {
+  giveFault(playerNum: number) {
     this.referee.givePenalty(playerNum);
   }
 
-  givePoint(type: string, playerNum:number) {
-    this.referee.givePoints(type,playerNum);
+  givePoint(type: string, playerNum: number) {
+    this.referee.givePoints(type, playerNum);
   }
 
 }

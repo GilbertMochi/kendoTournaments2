@@ -53,6 +53,13 @@ export class LanguagesService {
     this.miscellanousText.push("Tallentaa turnauksen tietokantaan.");//22
     this.miscellanousText.push("Muutokset tallennettu.");//23
     this.miscellanousText.push("OK");//24
+    this.miscellanousText.push("Aloita turnaus");//25
+    this.miscellanousText.push("Käynnistää turnauksen, jotta otteluita voidaan tuomaroida ja katsojat pääsevät seuraamaan tuloksia.");//26
+    this.miscellanousText.push("Lopeta turnaus");//27
+    this.miscellanousText.push("Lopettaa turnauksen, jottei otteluita voida enää tuomaroida ja poistaa turnauksen katsojien näkymästä.");//28
+    this.miscellanousText.push("Nollaa turnauksesta käynnistämisen ja lopettamisen tiedot.");//29
+    this.miscellanousText.push("Nollaa aloitus ja lopetus.");//30
+    this.miscellanousText.push("Käynnissä olevia turnauksia ei löydetty.");//31
   }
 
   private getTournamentDatesTexts() {
@@ -130,6 +137,7 @@ export class LanguagesService {
     this.matchesText.push('Ottelut on nyt poistettu tietokannastakin.');//23
     this.matchesText.push('Ottelu on käynnissä.');//24 
     this.matchesText.push('Ottelu on ohi.');//25
+    this.matchesText.push('Valitse voittaja.');//26
   }
 
   private getDashboardText() {
