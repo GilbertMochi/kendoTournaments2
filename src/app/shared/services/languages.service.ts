@@ -104,7 +104,7 @@ export class LanguagesService {
     this.poolsText.push("Poolin voittaja");//10
     this.poolsText.push("Poolin toinen");//11
     this.poolsText.push("Poolin voittajat");//12
-    this.poolsText.push("Kilapilija");//13
+    this.poolsText.push("Kilpailija");//13
     this.poolsText.push("Valitse voittaja");//14
     this.poolsText.push("Valitse toinen sija");//15
     this.poolsText.push("Voittajia ei ole vielä asetettu. Ne asetetaan tuomarin toimesta, kun pooli on ohi. Muussa tapauksessa ne voi asettaa valitsemalla poolin muokkauksen.");//16
@@ -138,6 +138,7 @@ export class LanguagesService {
     this.matchesText.push('Ottelu on käynnissä.');//24 
     this.matchesText.push('Ottelu on ohi.');//25
     this.matchesText.push('Valitse voittaja.');//26
+    this.matchesText.push('Jatka ottelua.');//27
   }
 
   private getDashboardText() {

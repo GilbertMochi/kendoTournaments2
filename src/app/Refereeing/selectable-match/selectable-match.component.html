@@ -5,8 +5,12 @@
     <h4>{{this.match.participant1.firstname}} {{this.match.participant1.lastname}} <strong>-</strong>
         {{this.match.participant2.firstname}} {{this.match.participant2.lastname}}</h4>
 
-    <button mat-raised-button color="primary" (click)="setMatchToReferee()"
+    <button *ngIf="this.match.matchStarted!=true" mat-raised-button color="primary" (click)="setMatchToReferee()"
         [matTooltip]="this.language.refereeText[4]">
         {{this.language.refereeText[3]}}
+    </button>
+    <button *ngIf="this.match.matchStarted==true" mat-raised-button color="primary" (click)="setMatchToReferee()"
+        [matTooltip]="this.language.refereeText[4]">
+        {{this.language.matchesText[27]}}
     </button>
 </div>

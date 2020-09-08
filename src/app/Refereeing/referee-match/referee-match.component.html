@@ -21,7 +21,7 @@
                     <mat-list role="list" class="scorePoints">
                         <h3>{{this.language.refereeText[12]}}</h3>
                         <mat-list-item *ngFor="let point of this.match.p1Score.hits" role="listitem">
-                            {{point.getPointTypeAsString(point.point_type)}}, {{this.language.miscellanousText[13]}}
+                            {{this.getPointTypeAsString(point.point_type)}}, {{this.language.miscellanousText[13]}}
                             {{point.time | date:'mediumTime'}}
                         </mat-list-item>
                     </mat-list>
@@ -30,7 +30,7 @@
                     <mat-list role="list" class="scorePoints">
                         <h3>{{this.language.refereeText[13]}}</h3>
                         <mat-list-item *ngFor="let fault of this.match.p1Score.faults" role="listitem">
-                            {{fault.getPointTypeAsString(fault.point_type)}}, {{this.language.miscellanousText[13]}}
+                            {{this.getPointTypeAsString(fault.point_type)}}, {{this.language.miscellanousText[13]}}
                             {{fault.time | date:'mediumTime'}}
                         </mat-list-item>
                     </mat-list>
@@ -45,16 +45,16 @@
                         <button mat-stroked-button color="primary" (click)="givePoint('kote', 1)">
                             KOTE
                         </button>
-                        <button mat-stroked-button color="primary" (click)="givePoint('do',1)">
+                        <button mat-stroked-button color="primary" (click)="givePoint('do', 1)">
                             DO
                         </button>
-                        <button mat-stroked-button color="primary" (click)="givePoint('tsuki',1)">
+                        <button mat-stroked-button color="primary" (click)="givePoint('tsuki', 1)">
                             TSUKI
                         </button>
                     </div>
                     <!-- after opponent has made two faults give the point to this player button -->
                     <div class="pointButtonRow">
-                        <button mat-flat-button color="accent" (click)="givePoint('ippon',1)">
+                        <button mat-flat-button color="accent" (click)="givePoint('ippon', 1)">
                             IPPON
                         </button>
                     </div>
@@ -78,7 +78,7 @@
                     <mat-list role="list" class="scorePoints">
                         <h3>{{this.language.refereeText[12]}}</h3>
                         <mat-list-item *ngFor="let point of this.match.p2Score.hits" role="listitem">
-                            {{point.getPointTypeAsString(point.point_type)}}, {{this.language.miscellanousText[13]}}
+                            {{this.getPointTypeAsString(point.point_type)}}, {{this.language.miscellanousText[13]}}
                             {{point.time | date:'mediumTime'}}
                         </mat-list-item>
                     </mat-list>
@@ -87,7 +87,7 @@
                     <mat-list role="list" class="scorePoints">
                         <h3>{{this.language.refereeText[13]}}</h3>
                         <mat-list-item *ngFor="let fault of this.match.p2Score.faults" role="listitem">
-                            {{fault.getPointTypeAsString(fault.point_type)}}, {{this.language.miscellanousText[13]}}
+                            {{this.getPointTypeAsString(fault.point_type)}}, {{this.language.miscellanousText[13]}}
                             {{fault.time | date:'mediumTime'}}
                         </mat-list-item>
                     </mat-list>
@@ -102,16 +102,16 @@
                         <button mat-stroked-button color="primary" (click)="givePoint('kote', 2)">
                             KOTE
                         </button>
-                        <button mat-stroked-button color="primary" (click)="givePoint('do',2)">
+                        <button mat-stroked-button color="primary" (click)="givePoint('do', 2)">
                             DO
                         </button>
-                        <button mat-stroked-button color="primary" (click)="givePoint('tsuki',2)">
+                        <button mat-stroked-button color="primary" (click)="givePoint('tsuki', 2)">
                             TSUKI
                         </button>
                     </div>
                     <!-- after opponent has made two faults give the point to this player button -->
                     <div class="pointButtonRow">
-                        <button mat-flat-button color="accent" (click)="givePoint('ippon',2)">
+                        <button mat-flat-button color="accent" (click)="givePoint('ippon', 2)">
                             IPPON
                         </button>
                     </div>
@@ -130,10 +130,10 @@
         <div>
             <!-- winner selection -->
             <mat-form-field appearance="fill">
-                <mat-label>{{this.language.matchesText[7]}}</mat-label>
+                <mat-label>{{this.language.poolsText[13]}}</mat-label>
                 <mat-select [(value)]="winner">
-                    <mat-option *ngFor="let participant of this.participants" [value]="participant">
-                        {{participant.firstname}} {{participant.lastname}}
+                    <mat-option *ngFor="let participant of this.participants; let i = index;" [value]="participant">
+                        {{this.language.poolsText[13]}} {{i+1}}: {{participant.firstname}} {{participant.lastname}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="this.winner==null">{{this.language.matchesText[26]}}
