@@ -139,6 +139,7 @@ export class LanguagesService {
     this.matchesText.push('Ottelu on ohi.');//25
     this.matchesText.push('Valitse voittaja.');//26
     this.matchesText.push('Jatka ottelua.');//27
+    this.matchesText.push('Valitse vielä ottelun voittaja päättääksesi ottelun.');//28
   }
 
   private getDashboardText() {
