@@ -12,7 +12,8 @@
 
         <h1>{{this.language.poolsText[0]}}</h1>
         <!--display each pool of the tournament-->
-        <app-pool-with-matches *ngFor="let p of this.tournament.pools" [pool]="p" [tournamentId]="this.tournament.id">
+        <app-pool-with-matches *ngFor="let p of this.tournament.pools;let i = index" [pool]="p"
+            [tournamentId]="this.tournament.id" (poolWinner)='poolWinner($event, i)' (poolSecond)='poolSecond($event, i)'>
         </app-pool-with-matches>
 
     </mat-expansion-panel>

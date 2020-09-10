@@ -1,7 +1,14 @@
-mat-list {
-    margin: 10px;
+h2 {
+    margin: 2%;
 }
 
-h2 {
-    margin: 20px;
+.chooseWinner {
+    display      : flex;
+    flex-wrap    : wrap;
+    margin       : 2%;
+}
+
+.item {
+    flex-flow: wrap;
+    margin   : 1%;
 }

@@ -9,13 +9,59 @@
     </mat-card-header>
 
     <mat-card-content>
-
+        <!--choose pool winner-->
+        <h2>{{this.language.poolsText[17]}}</h2>
+        <div class="chooseWinner">
+            <div class="item">
+                <mat-form-field appearance="fill">
+                    <mat-label>{{this.language.poolsText[14]}}</mat-label>
+                    <mat-select [(value)]="this.winner">
+                        <mat-option *ngIf="this.winner!=null" [value]="this.winner">
+                            {{this.winner.firstname}} {{this.winner.lastname}} {{this.winner.rank}}
+                        </mat-option>
+                        <mat-option *ngFor="let p of this.pool.participants" [value]="p">
+                            {{p.firstname}} {{p.lastname}} {{p.rank}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="item">
+                <button mat-raised-button color="accent" [disabled]="this.winner==null" (click)="saveWinner()">
+                    {{this.language.miscellanousText[1]}}
+                </button>
+            </div>
+        </div>
+        <!--choose pool second-->
+        <div class="chooseWinner">
+            <div class="item">
+                <mat-form-field appearance="fill">
+                    <mat-label>{{this.language.poolsText[15]}}</mat-label>
+                    <mat-select [(value)]="this.second">
+                        <mat-option *ngIf="this.second!=null" [value]="this.second">
+                            {{this.second.firstname}} {{this.second.lastname}} {{this.second.rank}}
+                        </mat-option>
+                        <mat-option *ngFor="let p of this.pool.participants" [value]="p">
+                            {{p.firstname}} {{p.lastname}} {{p.rank}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="item">
+                <button mat-raised-button color="accent" [disabled]="this.second==null" (click)="saveSecond()">
+                    {{this.language.miscellanousText[1]}}
+                </button>
+            </div>
+        </div>
         <!--matches for this pool-->
-        <mat-list>
-            <h2>{{this.language.matchesText[0]}}</h2>
-            <app-selectable-match *ngFor="let m of this.matchesForThisPool" [match]="m">
-            </app-selectable-match>
-        </mat-list>
+        <h2>{{this.language.matchesText[0]}}</h2>
+        <div *ngIf="this.matchesForThisPool.length>0">
+            <app-selectable-match *ngFor="let m of this.matchesForThisPool" [match]="m"></app-selectable-match>
+        </div>
+        <div *ngIf="this.matchesForThisPool.length<1">
+            <h3>
+                {{this.language.poolsText[18]}}
+            </h3>
+        </div>
 
     </mat-card-content>
 </mat-card>

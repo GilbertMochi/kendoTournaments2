@@ -1,19 +1,19 @@
 .scores {
     align-content: space-between;
-    margin       : 10px;
+    margin       : 2%;
     display      : flex;
     flex-wrap    : wrap;
 }
 
 .playerScore {
-    margin : 10px;
+    margin : 2%;
     border : 3px solid lightgrey;
-    padding: 30px;
+    padding: 3%;
     flex   : 1 1 300px;
 }
 
 .scorePoints {
-    margin   : 5px;
+    margin   : 1%;
     font-size: medium;
 }
 
@@ -22,13 +22,13 @@
 }
 
 .section {
-    padding      : 5px;
+    padding      : 1%;
     border-bottom: 1px solid lightgrey;
 }
 
 .pointButtonRow button {
     min-height   : 50px;
-    margin       : 20px;
+    margin       : 4%px;
     align-content: space-between;
 }
 
@@ -41,11 +41,11 @@ mat-card-actions button {
 }
 
 .selectWinner {
-    margin: 10px;
+    margin: 2%px;
 }
 
 .selectWinner mat-list-item {
-    margin: 10px;
+    margin: 2%px;
 }
 
 .selectWinner h3 {
