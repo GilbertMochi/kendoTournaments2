@@ -39,7 +39,7 @@ export class PoolWithMatchesComponent implements OnInit {
           if (data.matchOver == false)//if match isn't over add it to the match array
           {
             this.matchesForThisPool.push(data);
-            console.log('match added to this pools matches')
+            //console.log('match added to this pools matches')
           }
           //console.log("matches should have been added");
           return data;

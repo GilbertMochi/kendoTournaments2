@@ -22,13 +22,13 @@ export class TournamentWithPoolsAndMatchesComponent implements OnInit {
   poolWinner($event: Participant, i: number) {
     this.tournament.pools[i].winner = $event;
     this.tournamentManager.updateTournament(this.tournament);
-  console.log("trying to update pool winner to tournament in firebase");
+    //console.log("trying to update pool winner to tournament in firebase");
   }
 
   poolSecond($event: Participant, i: number) {
     this.tournament.pools[i].second = $event;
     this.tournamentManager.updateTournament(this.tournament);
-  console.log("trying to update pool second to tournament in firebase");
+    //console.log("trying to update pool second to tournament in firebase");
   }
 
 }
