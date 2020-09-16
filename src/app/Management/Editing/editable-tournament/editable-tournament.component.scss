@@ -1,5 +1,5 @@
 mat-card {
-    margin: 15px;
+    margin: 3%;
 }
 
 mat-card-title {
@@ -7,21 +7,21 @@ mat-card-title {
 }
 
 form {
-    margin : 5px;
-    padding: 20px;
+    margin : 1%;
+    padding: 2%;
 }
 
 mat-form-field {
-    margin: 10px;
+    margin: 2%;
 }
 
 h2 {
-    margin: 20px 0px;
+    margin: 2% 0px;
 }
 
 h3 {
-    margin     : 10px 0px;
-    font-weight: 500;
+    margin     : 1% 0px;
+    font-weight: bold;
 }
 
 .deleteTournamentBtn {
@@ -29,40 +29,32 @@ h3 {
 }
 
 .deleteItemBtn {
-    min-width: fit-content;
-    margin   : 10px;
+    width  : fit-content;
+    margin : 1%;
+    padding: 1% 2%;
 }
 
 .formBlock {
-    border-bottom: 4px solid darkgray;
-    padding      : 10px;
+    border-bottom: 1px solid darkgray;
+    padding      : 1%;
 }
 
 .participantItem {
-    display        : inline-flex;
-    width          : 100%;
-    margin         : 5px;
-    justify-content: space-between;
-    border-bottom  : 1px solid lightgray;
+    display      : flex;
+    flex-wrap    : wrap;
+    width        : 100%;
+    margin       : 1%;
+    border-bottom: 1px solid lightgray;
 }
 
 .dateWithLocationItem {
     min-width      : 20vw;
     width          : 100%;
     display        : inline-flex;
-    margin         : 5px;
+    margin         : 1%;
     justify-content: space-between;
 }
 
 .deleteIcon mat-icon {
     cursor: pointer;
-}
-
-.add {
-    min-width : 20vw;
-    width     : 30vw;
-    max-width : 50vw;
-    min-height: 7vh;
-    height    : 10vh;
-    font-size: large;
 }

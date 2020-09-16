@@ -156,9 +156,9 @@
                                         (addedMatchToDelete)='addedMatchToDelete($event)'>
                                     </app-editable-pool>
 
-                                    <button mat-stroked-button color="warn" class="deleteItemBtn"
-                                        (click)="deletePool(i)">
+                                    <button mat-flat-button color="warn" class="deleteItemBtn" (click)="deletePool(i)">
                                         {{this.language.miscellanousText[4]}}
+                                        <em>{{this.localTournament.pools[i].name}}</em>
                                         <mat-icon>delete</mat-icon>
                                     </button>
 
@@ -197,10 +197,15 @@
                 </mat-card-content>
                 <mat-card-actions>
                     <!--save changes-->
-                    <button mat-raised-button color="primary" class="add" [disabled]="!this.canSubmit()"
-                        (click)="saveChanges()">
+                    <button mat-raised-button color="primary" [disabled]="!this.canSubmit()" (click)="saveChanges()">
                         {{this.language.miscellanousText[19]}}
                         <mat-icon>publish</mat-icon>
+                    </button>
+
+                    <!--cancel/go back button-->
+                    <button mat-stroked-button color="warn" (click)="closeTournamentForm()"
+                        [matTooltip]="this.language.miscellanousText[21]" aria-label="displays a tooltip">
+                        {{this.language.miscellanousText[2]}}
                     </button>
                 </mat-card-actions>
             </form>

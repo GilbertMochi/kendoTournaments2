@@ -1,17 +1,11 @@
-<div *ngIf="!isEdit;else editParticipant">
-    <div class="horisontally">
-        <div class="horisontally">
-            <p>{{this.participant.firstname}}</p>
-            <p>{{this.participant.lastname}}</p>
-            <p>{{this.participant.rank}}</p>
-            <h4>{{this.language.participantsText[11]}}</h4>
-            <p>{{this.participant.wins}}</p>
-            <h4>{{this.language.participantsText[12]}}</h4>
-            <p>{{this.participant.losses}}</p>
-        </div>
-        <button mat-stroked-button color="accent" class="editButton"
-            (click)="isEdit=true;">{{this.language.miscellanousText[0]}}</button>
-    </div>
+<div *ngIf="!isEdit;else editParticipant" class="horisontally">
+    <p>{{this.participant.firstname}}</p>
+    <p>{{this.participant.lastname}}</p>
+    <p>{{this.participant.rank}}</p>
+    <p>{{this.language.participantsText[11]}} {{this.participant.wins}}</p>
+    <p>{{this.language.participantsText[12]}} {{this.participant.losses}}</p>
+    <button mat-stroked-button class="editBtn" color="accent"
+        (click)="isEdit=true;">{{this.language.miscellanousText[0]}}</button>
 </div>
 <ng-template #editParticipant>
     <div class="editableParticipant">
