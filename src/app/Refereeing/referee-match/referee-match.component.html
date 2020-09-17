@@ -17,21 +17,29 @@
                     <h1>{{this.match.participant1.firstname}} {{this.match.participant1.lastname}}</h1>
                     <h1>{{this.match.p1Score.hitScore}}</h1>
                 </div>
+                <!--p1 points-->
                 <div class="section">
                     <mat-list role="list" class="scorePoints">
                         <h3>{{this.language.refereeText[12]}}</h3>
-                        <mat-list-item *ngFor="let point of this.match.p1Score.hits" role="listitem">
+                        <mat-list-item *ngFor="let point of this.match.p1Score.hits; let i=index;" role="listitem">
                             {{this.getPointTypeAsString(point.point_type)}}, {{this.language.miscellanousText[13]}}
                             {{point.time | date:'mediumTime'}}
+                            <button mat-icon-button color="warn" (click)="removePoint(i, 1)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
                         </mat-list-item>
                     </mat-list>
                 </div>
+                <!--p1 faults-->
                 <div class="section">
                     <mat-list role="list" class="scorePoints">
                         <h3>{{this.language.refereeText[13]}}</h3>
-                        <mat-list-item *ngFor="let fault of this.match.p1Score.faults" role="listitem">
+                        <mat-list-item *ngFor="let fault of this.match.p1Score.faults;let i=index;" role="listitem">
                             {{this.getPointTypeAsString(fault.point_type)}}, {{this.language.miscellanousText[13]}}
                             {{fault.time | date:'mediumTime'}}
+                            <button mat-icon-button color="warn" (click)="removeFault(i, 1)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
                         </mat-list-item>
                     </mat-list>
                 </div>
@@ -74,21 +82,29 @@
                     <h1>{{this.match.participant2.firstname}} {{this.match.participant2.lastname}}</h1>
                     <h1>{{this.match.p2Score.hitScore}}</h1>
                 </div>
+                <!--p2 points-->
                 <div class="section">
                     <mat-list role="list" class="scorePoints">
                         <h3>{{this.language.refereeText[12]}}</h3>
-                        <mat-list-item *ngFor="let point of this.match.p2Score.hits" role="listitem">
+                        <mat-list-item *ngFor="let point of this.match.p2Score.hits; let i=index;" role="listitem">
                             {{this.getPointTypeAsString(point.point_type)}}, {{this.language.miscellanousText[13]}}
                             {{point.time | date:'mediumTime'}}
+                            <button mat-icon-button color="warn" (click)="removePoint(i, 2)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
                         </mat-list-item>
                     </mat-list>
                 </div>
+                <!--p2 faults-->
                 <div class="section">
                     <mat-list role="list" class="scorePoints">
                         <h3>{{this.language.refereeText[13]}}</h3>
-                        <mat-list-item *ngFor="let fault of this.match.p2Score.faults" role="listitem">
+                        <mat-list-item *ngFor="let fault of this.match.p2Score.faults;let i=index;" role="listitem">
                             {{this.getPointTypeAsString(fault.point_type)}}, {{this.language.miscellanousText[13]}}
                             {{fault.time | date:'mediumTime'}}
+                            <button mat-icon-button color="warn" (click)="removeFault(i, 2)">
+                                <mat-icon>delete_forever</mat-icon>
+                            </button>
                         </mat-list-item>
                     </mat-list>
                 </div>

@@ -243,4 +243,37 @@ export class RefereeingService {
     // console.log(m.winner);//winner is currently null and possibly causes the error in firebase
   }
 
+  removePoint(index: number, playerNum: number) {
+    if (playerNum == 1)//player 1
+    {
+      this.currentMatch.p1Score.hitScore -= this.getValueFromType(this.currentMatch.p1Score.hits[index].point_type);
+      this.currentMatch.p1Score.hits.splice(index, 1);
+    } else if (playerNum == 2)//player 1
+    {
+      this.currentMatch.p2Score.hitScore -= this.getValueFromType(this.currentMatch.p2Score.hits[index].point_type);
+      this.currentMatch.p2Score.hits.splice(index, 1);
+    }
+  }
+
+  removeFault(index: number, playerNum: number) {
+    if (playerNum == 1) {
+      //check if the fault score is something else than 0
+      if (this.currentMatch.p1Score.faultScore > 0) {
+        //reduce the fault score
+        this.currentMatch.p1Score.faultScore -= this.getValueFromType(this.currentMatch.p1Score.faults[index].point_type);
+      }
+      //remove the fault from list
+      this.currentMatch.p1Score.faults.splice(index, 1);
+    }
+    else if (playerNum == 2) {
+      //check if the fault score is something else than 0
+      if (this.currentMatch.p2Score.faultScore > 0) {
+        //reduce the fault score
+        this.currentMatch.p2Score.faultScore -= this.getValueFromType(this.currentMatch.p2Score.faults[index].point_type);
+      }
+      //remove the fault from list
+      this.currentMatch.p2Score.faults.splice(index, 1);
+    }
+  }
+
 }

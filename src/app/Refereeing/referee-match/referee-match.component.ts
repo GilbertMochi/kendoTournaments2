@@ -73,4 +73,12 @@ export class RefereeMatchComponent implements OnInit {
     return t;
   }
 
+  removePoint(i: number, playerNum: number) {
+    this.referee.removePoint(i, playerNum);
+  }
+
+  removeFault(index: number, playerNum: number) {
+    this.referee.removeFault(index, playerNum);
+  }
+
 }
