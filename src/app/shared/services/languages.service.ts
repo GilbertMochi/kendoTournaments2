@@ -110,6 +110,8 @@ export class LanguagesService {
     this.poolsText.push("Voittajia ei ole vielä asetettu. Ne asetetaan tuomarin toimesta, kun pooli on ohi. Muussa tapauksessa ne voi asettaa valitsemalla poolin muokkauksen.");//16
     this.poolsText.push("Valitse poolille voittaja ja toinen sija.");//17
     this.poolsText.push("Tälle poolille ei ole tulevia otteluita.");//18
+    this.poolsText.push("Kaikki poolin ottelut ovat ohi.");//19
+    this.poolsText.push("Pooliin ei ole vielä aseteltu kilpailijoita.");//20
   }
 
   private getMatchesText() {

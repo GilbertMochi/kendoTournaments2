@@ -18,6 +18,7 @@ export class PoolWithMatchesComponent implements OnInit {
 
   matches: Match[] = [];
   matchesForThisPool: Match[] = [];
+  upcomingMatches: Match[] = [];//array of matches that aren't over yet
 
   winner: Participant;
   second: Participant;
@@ -35,16 +36,18 @@ export class PoolWithMatchesComponent implements OnInit {
         //if the match belongs to this tournament and pool
         if (data.tournamentId == this.tournamentId && data.poolId == this.pool.id) {
           data.id = d.payload.doc.id;
-          console.log(data);
-          if (data.matchOver == false)//if match isn't over add it to the match array
-          {
-            this.matchesForThisPool.push(data);
-            //console.log('match added to this pools matches')
-          }
-          //console.log("matches should have been added");
+          //console.log(data);
+          this.matchesForThisPool.push(data);
+
           return data;
         }
       });
+    });
+
+    this.matchesForThisPool.forEach(element => {//push the matches that arent over to upcoing matches array
+      if (element.matchOver == true) {
+        this.upcomingMatches.push(element);
+      }
     });
 
     //if pool has winners set
@@ -65,6 +68,55 @@ export class PoolWithMatchesComponent implements OnInit {
   saveSecond() {
     if (this.second != null) {
       this.poolSecond.emit(this.second);
+    }
+  }
+
+  canSaveWinner(): boolean {
+    if (this.winner != null) {//if winner has been set
+      if (this.winner != this.pool.winner) {//if the winner is different fromt he one in firebase
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  canSaveSecond(): boolean {
+    if (this.second != null) {
+      if (this.second != this.pool.second) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  poolMatchesAreOver(): boolean {
+    this.matchesForThisPool.forEach(element => {
+      if (element.matchOver == false) {//if any of the matches isnät over return false
+        return false;
+      }
+    });
+    return true;//if none of the matches had isOVer==false all matches are over and function returns true
+  }
+  
+  poolHasParticipantsSet(): boolean {
+    if (this.pool.participants.length > 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  showWinnerSelection() {
+    if (this.poolHasParticipantsSet()) {
+      if (this.winner == null || this.second == null) {
+        return true;
+      }
+    }
+    else {
+      return false;
     }
   }
 
