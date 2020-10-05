@@ -24,6 +24,10 @@ import { SelectableMatchComponent } from './Refereeing/selectable-match/selectab
 import { TournamentWithPoolsAndMatchesComponent } from './Refereeing/tournament-with-pools-and-matches/tournament-with-pools-and-matches.component';
 import { RefereeMatchComponent } from './Refereeing/referee-match/referee-match.component';
 import { MatchConfirmationDialogComponent } from './Refereeing/match-confirmation-dialog/match-confirmation-dialog.component';
+import { LoginComponent } from './Authentication/login/login.component';
+import { RegisterComponent } from './Authentication/register/register.component';
+import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot-password.component';
+import { VerifyEmailComponent } from './Authentication/verify-email/verify-email.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +46,10 @@ import { MatchConfirmationDialogComponent } from './Refereeing/match-confirmatio
     TournamentWithPoolsAndMatchesComponent,
     RefereeMatchComponent,
     MatchConfirmationDialogComponent,
+    LoginComponent,
+    RegisterComponent,
+    ForgotPasswordComponent,
+    VerifyEmailComponent,
   ],
   entryComponents: [MatchConfirmationDialogComponent],
   imports: [

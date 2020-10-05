@@ -60,6 +60,7 @@ export class LanguagesService {
     this.miscellanousText.push("Nollaa turnauksesta käynnistämisen ja lopettamisen tiedot.");//29
     this.miscellanousText.push("Nollaa aloitus ja lopetus.");//30
     this.miscellanousText.push("Käynnissä olevia turnauksia ei löydetty.");//31
+    this.miscellanousText.push("Kirjaudu");//32
   }
 
   private getTournamentDatesTexts() {
