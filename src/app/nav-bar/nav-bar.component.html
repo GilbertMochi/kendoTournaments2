@@ -3,10 +3,14 @@
         <a class="largeLink" mat-button routerLink="/home">{{this.language.miscellanousText[8]}}</a>
         <span class="spacer"></span>
         <div>
-            <a mat-button routerLink="/dashboard">
-                {{this.language.miscellanousText[32]}}
+            <a *ngIf="!loggedIn()" mat-button routerLink="/login">
+                {{this.language.authorisationText[2]}}
                 <mat-icon class="icon">login</mat-icon>
             </a>
+            <button *ngIf="loggedIn()" mat-button color="warn" (click)="logout()">
+                {{this.language.authorisationText[3]}}
+                <mat-icon class="icon">login</mat-icon>
+            </button>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

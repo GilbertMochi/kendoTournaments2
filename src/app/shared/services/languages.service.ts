@@ -12,22 +12,24 @@ export class LanguagesService {
   public matchesText: string[] = [];
   public dashboardText: string[] = [];
   public refereeText: string[] = [];
+  public authorisationText: string[] = [];
 
   constructor() {
     this.getTextInCorretLanguage();
   }
 
   getTextInCorretLanguage() {
-    this.getMiscellanousText();
+    this.getMiscellanousTexts();
     this.getTournamentDatesTexts();
     this.getParticipantsTexts();
     this.getPoolTexts();
-    this.getMatchesText();
-    this.getDashboardText();
-    this.getRefereeText();
+    this.getMatchesTexts();
+    this.getDashboardTexts();
+    this.getRefereeTexts();
+    this.getAuthorisationTexts();
   }
 
-  private getMiscellanousText() {
+  private getMiscellanousTexts() {
     this.miscellanousText.push("Muokkaa");//0
     this.miscellanousText.push("Tallenna");//1
     this.miscellanousText.push("Peruuta");//2
@@ -60,7 +62,6 @@ export class LanguagesService {
     this.miscellanousText.push("Nollaa turnauksesta käynnistämisen ja lopettamisen tiedot.");//29
     this.miscellanousText.push("Nollaa aloitus ja lopetus.");//30
     this.miscellanousText.push("Käynnissä olevia turnauksia ei löydetty.");//31
-    this.miscellanousText.push("Kirjaudu");//32
   }
 
   private getTournamentDatesTexts() {
@@ -115,7 +116,7 @@ export class LanguagesService {
     this.poolsText.push("Pooliin ei ole vielä aseteltu kilpailijoita.");//20
   }
 
-  private getMatchesText() {
+  private getMatchesTexts() {
     this.matchesText.push('Ottelut');//0
     this.matchesText.push('Lisää uusi ottelu');//1
     this.matchesText.push('Poista ottelu');//2
@@ -147,7 +148,7 @@ export class LanguagesService {
     this.matchesText.push('Valitse vielä ottelun voittaja päättääksesi ottelun.');//28
   }
 
-  private getDashboardText() {
+  private getDashboardTexts() {
     this.dashboardText.push("Turnaukset");//0
     this.dashboardText.push("Turnausten ylläpito");//1
     this.dashboardText.push("Turnausten ylläpitäjien toiminnot.");//2
@@ -161,7 +162,7 @@ export class LanguagesService {
     this.dashboardText.push("Siirry");//10
   }
 
-  private getRefereeText() {
+  private getRefereeTexts() {
     this.refereeText.push("Käynnissä olevat turnaukset");//0
     this.refereeText.push("Valitse ottelu");//1
     this.refereeText.push("Tulevat ottelut");//2
@@ -179,5 +180,15 @@ export class LanguagesService {
     this.refereeText.push("Kyllä");//14
     this.refereeText.push("Ei, sulje tämä ja palaa tarkistamaan ottelun tulos.");//15
     this.refereeText.push("Avaa nähdäksesi turnauksen poolit ja ottelut.");//16
+  }
+
+  private getAuthorisationTexts() {
+    this.authorisationText.push("Kirjaudu");//0
+    this.authorisationText.push("Kirjaudu sisään palveluun tuomarina tai asettelijana.");//1
+    this.authorisationText.push("Kirjaudu sisään");//2
+    this.authorisationText.push("Kirjaudu ulos");//3
+    this.authorisationText.push("Käyttäjätunnus");//4
+    this.authorisationText.push("sähköposti@mail.com");//5
+    this.authorisationText.push("salasana");//6
   }
 }
