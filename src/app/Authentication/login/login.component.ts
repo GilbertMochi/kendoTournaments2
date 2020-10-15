@@ -22,15 +22,12 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-
+    const { email, password } = this.loginForm.value;
+    this.au.login(email, password);
   }
 
-  setUsername($event) {
-
-  }
-
-  setPassword($event) {
-
+  forgotPassword(){
+    
   }
 
 }

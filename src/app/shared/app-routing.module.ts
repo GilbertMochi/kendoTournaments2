@@ -12,20 +12,20 @@ import { LoginComponent } from '../Authentication/login/login.component';
 import { RegisterComponent } from '../Authentication/register/register.component';
 import { ForgotPasswordComponent } from '../Authentication/forgot-password/forgot-password.component';
 import { VerifyEmailComponent } from '../Authentication/verify-email/verify-email.component';
-import { AuthGuard } from './Authorisation/auth.guard';
-import { Role } from './roles';
+import { OrganiserGuard } from './Authorisation/organiser.guard';
+import { RefereeGuard } from './Authorisation/referee.guard';
 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'add-tournaments', component: NewTournamentComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
-  { path: 'edit-tournaments', component: EditTournamentsComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
-  { path: 'referee-overview', component: RefereeingOverviewComponent, canActivate: [AuthGuard] },
-  { path: 'referee-match', component: RefereeMatchComponent, canActivate: [AuthGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [OrganiserGuard, RefereeGuard] },
+  { path: 'add-tournaments', component: NewTournamentComponent, canActivate: [OrganiserGuard] },
+  { path: 'edit-tournaments', component: EditTournamentsComponent, canActivate: [OrganiserGuard] },
+  { path: 'referee-overview', component: RefereeingOverviewComponent, canActivate: [OrganiserGuard, RefereeGuard] },
+  { path: 'referee-match', component: RefereeMatchComponent, canActivate: [OrganiserGuard, RefereeGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin] } },
+  { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'verify-email', component: VerifyEmailComponent },
 ];

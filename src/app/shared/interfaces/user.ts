@@ -1,8 +1,7 @@
 import { Role } from './roles';
 
-export class User {
-    uid: number;
+export interface User {
+    uid: string;
     email: string;
     role: Role;
-    emailVerified:boolean;
 }
