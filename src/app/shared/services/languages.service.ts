@@ -13,6 +13,7 @@ export class LanguagesService {
   public dashboardText: string[] = [];
   public refereeText: string[] = [];
   public authorisationText: string[] = [];
+  public validationText: string[] = [];
 
   constructor() {
     this.getTextInCorretLanguage();
@@ -27,6 +28,7 @@ export class LanguagesService {
     this.getDashboardTexts();
     this.getRefereeTexts();
     this.getAuthorisationTexts();
+    this.getValidationTexts();
   }
 
   private getMiscellanousTexts() {
@@ -62,6 +64,7 @@ export class LanguagesService {
     this.miscellanousText.push("Nollaa turnauksesta käynnistämisen ja lopettamisen tiedot.");//29
     this.miscellanousText.push("Nollaa aloitus ja lopetus.");//30
     this.miscellanousText.push("Käynnissä olevia turnauksia ei löydetty.");//31
+    this.miscellanousText.push("Takaisin");//32
   }
 
   private getTournamentDatesTexts() {
@@ -189,6 +192,29 @@ export class LanguagesService {
     this.authorisationText.push("Kirjaudu ulos");//3
     this.authorisationText.push("Käyttäjätunnus");//4
     this.authorisationText.push("sähköposti@mail.com");//5
-    this.authorisationText.push("salasana");//6
+    this.authorisationText.push("Salasana");//6
+    this.authorisationText.push("Salasana unohtunut?");//7
+    this.authorisationText.push("Lähetä");//8
+    this.authorisationText.push("Syötä sähköposti");//9
+    this.authorisationText.push("Sähköpostiosoite");//10
+    this.authorisationText.push("Annettua sähköpostia ei ole kirjattu järjestelmään.");//11
+    this.authorisationText.push("Lähetetty");//12
+    this.authorisationText.push("Tarkista sähköpostisi ja palaa takaisin kirjautumissivulle.");//13
+  }
+
+  private getValidationTexts() {
+    this.validationText.push('Käyttäjätunnus tarvitaan.');//0
+    this.validationText.push('Käyttäjätunnuksen tulee olla vähintään viisi merkkiä pitkä.');//1
+    this.validationText.push('Käyttäjätunnus ei saa olla yli 25 merkkiä pitkä.');//2
+    this.validationText.push('Tunnuksessa saa olla vain numeroita ja kirjaimia.');//3
+    this.validationText.push('Tämä tunnus on jo käytössä.');//4
+    this.validationText.push('Sähköposti on pakollinen.');//5
+    this.validationText.push('Tämä sähköpostiosoite ei ole kelvollinen.');//6
+    this.validationText.push('Salasana pitää varmistaa.');//7
+    this.validationText.push('Salasanat eivät täsmää keskenään.');//8
+    this.validationText.push('Salasana tarvitaan.');//9
+    this.validationText.push('Salasanan tulee olla vähintään viisi merkkiä pitkä.');//10
+    this.validationText.push('Salsanan tulee sisältää isoja ja pieniä kirjaimia sekä numeroita.');//11
+    this.validationText.push('Sinun tulee hyväksyä käyttöehdot.');//12
   }
 }

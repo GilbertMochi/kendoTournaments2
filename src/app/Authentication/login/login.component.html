@@ -15,15 +15,26 @@
                 <!--username-->
                 <mat-label>{{this.language.authorisationText[4]}}</mat-label>
                 <input matInput type="text" placeholder="{{this.language.authorisationText[5]}}"
-                    formControlName="username"/>
+                    formControlName="username" />
+                    <mat-error *ngFor="let validation of validation_messages.username">
+                        <mat-error class="error-message"
+                            *ngIf="loginForm.get('username').hasError(validation.type) && (loginForm.get('username').dirty || loginForm.get('username').touched)">
+                            {{validation.message}}</mat-error>
+                    </mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill">
                 <!--password-->
                 <mat-label>{{this.language.authorisationText[6]}}</mat-label>
                 <input matInput type="password" placeholder="{{this.language.authorisationText[6]}}"
-                    formControlName="password"/>
+                    formControlName="password" />
+                    <mat-error *ngFor="let validation of validation_messages.password">
+                        <mat-error class="error-message"
+                            *ngIf="loginForm.get('password').hasError(validation.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+                            {{validation.message}}</mat-error>
+                    </mat-error>
             </mat-form-field>
         </form>
+        <a mat-button class="link" color="accent" routerLink="/forgot-password"> {{this.language.authorisationText[7]}}</a>
     </mat-card-content>
     <mat-card-actions>
         <button mat-raised-button color="primary" [disabled]="this.loginForm.invalid" (click)="login()">

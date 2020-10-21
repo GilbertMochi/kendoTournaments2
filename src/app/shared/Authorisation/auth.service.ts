@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { User } from '../interfaces/user';
+//import { User } from  'firebase';
 import { Role } from '../interfaces/roles';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
