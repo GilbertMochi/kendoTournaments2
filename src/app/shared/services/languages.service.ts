@@ -13,7 +13,9 @@ export class LanguagesService {
   public dashboardText: string[] = [];
   public refereeText: string[] = [];
   public authorisationText: string[] = [];
+  public registerText: string[] = [];
   public validationText: string[] = [];
+  public rolesText: string[] = [];
 
   constructor() {
     this.getTextInCorretLanguage();
@@ -28,7 +30,9 @@ export class LanguagesService {
     this.getDashboardTexts();
     this.getRefereeTexts();
     this.getAuthorisationTexts();
+    this.getRegisterTexts();
     this.getValidationTexts();
+    this.getRoleTexts();
   }
 
   private getMiscellanousTexts() {
@@ -200,6 +204,19 @@ export class LanguagesService {
     this.authorisationText.push("Annettua sähköpostia ei ole kirjattu järjestelmään.");//11
     this.authorisationText.push("Lähetetty");//12
     this.authorisationText.push("Tarkista sähköpostisi ja palaa takaisin kirjautumissivulle.");//13
+    this.authorisationText.push("Anna salasana.");//14
+  }
+
+  private getRegisterTexts() {
+    this.registerText.push("Rekisteröi uusi käyttäjä")//0
+    this.registerText.push("Valitse käyttäjälle rooli")//1
+    this.registerText.push("Rooli")//2
+    this.registerText.push("Tuomari")//3
+    this.registerText.push("Järjestäjä")//4
+    this.registerText.push("Luo uusi käyttäjä. Käyttäjä tulee kirjautumaan sisään sähköposti ja salasana yhdistelmällä. Käyttäjä voi myöhemmin vaihtaa salasanan. Käyttäjän rooli määrittelee mitä hän voi järjestelmässä tehdä. Järjestäjä pystyy lisäämään ja poistamaan käyttäjiä, turnauksia ja otteluita, hän voi myös muokata turnauksia. Tuomari pystyy vain toimitsemaan otteluita.")//5
+    this.registerText.push()//6
+    this.registerText.push()//7
+    this.registerText.push()//8
   }
 
   private getValidationTexts() {
@@ -216,5 +233,10 @@ export class LanguagesService {
     this.validationText.push('Salasanan tulee olla vähintään viisi merkkiä pitkä.');//10
     this.validationText.push('Salsanan tulee sisältää isoja ja pieniä kirjaimia sekä numeroita.');//11
     this.validationText.push('Sinun tulee hyväksyä käyttöehdot.');//12
+  }
+
+  getRoleTexts() {
+    this.rolesText.push("Järjestäjä");//0
+    this.rolesText.push("Tuomari");//1
   }
 }

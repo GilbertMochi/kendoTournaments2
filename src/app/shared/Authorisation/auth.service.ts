@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from "@angular/router";
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { User } from '../interfaces/user';
@@ -13,7 +13,11 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 })
 export class AuthService {
 
+  private eventAuthError = new BehaviorSubject<string>("");
+  eventAuthError$ = this.eventAuthError.asObservable();
+
   user$: Observable<User>;
+  newUser: User;
 
   constructor(public afAuth: AngularFireAuth, private afs: AngularFirestore, private router: Router) {
 
@@ -42,12 +46,20 @@ export class AuthService {
 
   async login(email: string, password: string) {
     var result = await this.afAuth.signInWithEmailAndPassword(email, password).then(() =>
-      this.updateUserData(this.user$).then(() =>
-        this.router.navigate(['/dashboard'])));
+        this.router.navigate(['/dashboard']));
   }
 
-  async register(email: string, password: string) {
-    var result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+  async register(email: string, password: string, user: User) {
+    var result = await this.afAuth.createUserWithEmailAndPassword(email, password).then(userCredentials => {
+      this.newUser = {
+        email: email,
+        uid: userCredentials.user.uid,
+        role: user.role
+      };
+      this.insertNewUser(this.newUser).then(() => this.router.navigate(['/dashboard']));
+    }).catch(error => {
+      this.eventAuthError.next(error);
+    });
     this.sendEmailVerification();
   }
 
@@ -70,15 +82,23 @@ export class AuthService {
     return user !== null;
   }
 
+  insertNewUser(user: User) {
+    return this.afs.doc(`Users/${user.uid}`).set({
+      email: user.email,
+      uid: user.uid,
+      role: user.role
+    })
+  }
+
   private updateUserData(user) {
     // Sets user data to firestore on login
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`Users/${user.uid}`);
     const data: User = {
       uid: user.uid,
       email: user.email,
-      role: { referee: true }
+      role: user.role
     }
-    return userRef.set(data, { merge: true })
+    return userRef.set(data, { merge: true });
   }
 
   //stolen from fireship.io's tutorial

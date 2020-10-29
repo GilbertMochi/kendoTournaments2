@@ -12,11 +12,11 @@
     <mat-card-content>
         <form [formGroup]="loginForm">
             <mat-form-field appearance="fill">
-                <!--username-->
-                <mat-label>{{this.language.authorisationText[4]}}</mat-label>
-                <input matInput type="text" placeholder="{{this.language.authorisationText[5]}}"
+                <!--email-->
+                <mat-label>{{this.language.authorisationText[9]}}</mat-label>
+                <input matInput type="text" placeholder="{{this.language.authorisationText[10]}}"
                     formControlName="username" />
-                    <mat-error *ngFor="let validation of validation_messages.username">
+                    <mat-error *ngFor="let validation of this.validation.validation_messages.email">
                         <mat-error class="error-message"
                             *ngIf="loginForm.get('username').hasError(validation.type) && (loginForm.get('username').dirty || loginForm.get('username').touched)">
                             {{validation.message}}</mat-error>
@@ -27,7 +27,7 @@
                 <mat-label>{{this.language.authorisationText[6]}}</mat-label>
                 <input matInput type="password" placeholder="{{this.language.authorisationText[6]}}"
                     formControlName="password" />
-                    <mat-error *ngFor="let validation of validation_messages.password">
+                    <mat-error *ngFor="let validation of this.validation.validation_messages.password">
                         <mat-error class="error-message"
                             *ngIf="loginForm.get('password').hasError(validation.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
                             {{validation.message}}</mat-error>
