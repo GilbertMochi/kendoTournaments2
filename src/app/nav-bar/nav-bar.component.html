@@ -7,10 +7,18 @@
                 {{this.language.authorisationText[2]}}
                 <mat-icon class="icon">login</mat-icon>
             </a>
-            <button *ngIf="loggedIn()" mat-button color="warn" (click)="logout()">
-                {{this.language.authorisationText[3]}}
-                <mat-icon class="icon">login</mat-icon>
-            </button>
+            <button *ngIf="loggedIn()" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <a mat-menu-item routerLink="/dashboard">
+                  <mat-icon>dashboard</mat-icon>
+                  <span>{{this.language.navigationText[2]}}</span>
+                </a>
+                <button mat-menu-item color="warn" class="logout" (click)="logout()">
+                  <span>{{this.language.authorisationText[3]}}</span>
+                </button>
+              </mat-menu>
         </div>
     </mat-toolbar-row>
 </mat-toolbar>

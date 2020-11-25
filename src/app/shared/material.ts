@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatMenuModule} from '@angular/material/menu';
 
 const material = [
     MatToolbarModule,
@@ -38,6 +39,7 @@ const material = [
     MatGridListModule,
     MatDialogModule,
     MatProgressSpinnerModule,
+    MatMenuModule,
 ];
 
 @NgModule({

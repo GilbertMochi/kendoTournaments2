@@ -1,12 +1,16 @@
 .icon {
-    padding: 0 14px;
-  }
-  
-  .spacer {
-    flex: 1 1 auto;
-  }
+  padding: 0 14px;
+}
 
-  .largeLink{
-    font-size: 40px;
-    padding: 15px;
-  }
+.spacer {
+  flex: 1 1 auto;
+}
+
+.largeLink {
+  font-size: 40px;
+  padding  : 15px;
+}
+
+.logout {
+  color: red;
+}

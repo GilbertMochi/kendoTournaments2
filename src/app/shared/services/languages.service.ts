@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class LanguagesService {
 
   public miscellanousText: string[] = [];
+  public navigationText: string[] = [];
   public tournamentDatesText: string[] = [];
   public participantsText: string[] = [];
   public poolsText: string[] = [];
@@ -23,6 +24,7 @@ export class LanguagesService {
 
   getTextInCorretLanguage() {
     this.getMiscellanousTexts();
+    this.getNavigationTexts();
     this.getTournamentDatesTexts();
     this.getParticipantsTexts();
     this.getPoolTexts();
@@ -69,6 +71,12 @@ export class LanguagesService {
     this.miscellanousText.push("Nollaa aloitus ja lopetus.");//30
     this.miscellanousText.push("Käynnissä olevia turnauksia ei löydetty.");//31
     this.miscellanousText.push("Takaisin");//32
+  }
+
+  getNavigationTexts(){
+    this.navigationText.push("Koti")//0
+    this.navigationText.push("Turnaukset")//1
+    this.navigationText.push("Toiminto näkymä")//2
   }
 
   private getTournamentDatesTexts() {
