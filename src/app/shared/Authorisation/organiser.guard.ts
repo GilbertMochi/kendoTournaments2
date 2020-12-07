@@ -32,7 +32,7 @@ export class OrganiserGuard implements CanActivate {
     //   return false;
     return this.auth.user$.pipe(
       take(1),
-      map(user => user && this.auth.canDelete ? true : false),
+      map(user => user && this.auth.isAdmin ? true : false),
       tap(isAdmin => {
         if (!isAdmin) {
           this.router.navigate(['/dashboard']);

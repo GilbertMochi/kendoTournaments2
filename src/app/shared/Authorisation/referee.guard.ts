@@ -16,7 +16,7 @@ export class RefereeGuard implements CanActivate {
 
     return this.auth.user$.pipe(
       take(1),
-      map(user => user && this.auth.canEdit ? true : false),
+      map(user => user && this.auth.isReferee ? true : false),
       tap(isReferee => {
         if (!isReferee) {
           this.router.navigate(['/home']);

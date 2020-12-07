@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/shared/Authorisation/auth.service';
-import { Role } from 'src/app/shared/interfaces/roles';
 import { User } from 'src/app/shared/interfaces/user';
 import { LanguagesService } from 'src/app/shared/services/languages.service';
 import { ValidationService } from 'src/app/shared/services/validation.service';
@@ -37,26 +36,18 @@ export class RegisterComponent implements OnInit {
     this.newUser = {
       email: this.registerForm.get('email').value,
       uid: "",
-      role: this.getUserRole()
+      isAdmin: false,
+      isOrganiser: this.getUserRole()
     };
 
     this.au.register(this.newUser.email, this.registerForm.get('password').value, this.newUser);
   }
 
-  getUserRole(): Role {
+  getUserRole(): boolean {
     if (this.userRole == this.language.rolesText[0]) {
-      return {
-        admin: false,
-        organiser: true,
-        referee: true
-      };
-    } else {
-      return {
-        admin: false,
-        organiser: false,
-        referee: true
-      };
+      return true;
     }
+    return false;
   }
 
 }

@@ -4,8 +4,6 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { User } from '../interfaces/user';
-//import { User } from  'firebase';
-import { Role } from '../interfaces/roles';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 @Injectable({
@@ -46,7 +44,7 @@ export class AuthService {
 
   async login(email: string, password: string) {
     var result = await this.afAuth.signInWithEmailAndPassword(email, password).then(() =>
-        this.router.navigate(['/dashboard']));
+      this.router.navigate(['/dashboard']));
   }
 
   async register(email: string, password: string, user: User) {
@@ -54,7 +52,8 @@ export class AuthService {
       this.newUser = {
         email: email,
         uid: userCredentials.user.uid,
-        role: user.role
+        isAdmin: false,
+        isOrganiser: false
       };
       this.insertNewUser(this.newUser).then(() => this.router.navigate(['/dashboard']));
     }).catch(error => {
@@ -86,7 +85,8 @@ export class AuthService {
     return this.afs.doc(`Users/${user.uid}`).set({
       email: user.email,
       uid: user.uid,
-      role: user.role
+      isAdmin: false,
+      isOrganiser: false
     })
   }
 
@@ -96,39 +96,36 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email,
-      role: user.role
+      isAdmin: user.isAdmin,
+      isOrganiser: user.isOrganiser,
     }
     return userRef.set(data, { merge: true });
   }
 
-  //stolen from fireship.io's tutorial
-
-  canRead(user: User): boolean {
-    const allowed = ['admin', 'organiser', 'referee'];
-    return this.checkAuthorization(user, allowed);
-  }
-
-  canEdit(user: User): boolean {
-    const allowed = ['admin', 'organiser', 'referee'];
-    return this.checkAuthorization(user, allowed);
-  }
-
-  canDelete(user: User): boolean {
-    const allowed = ['organiser'];
-    return this.checkAuthorization(user, allowed);
-  }
-
-
-
   // determines if user has matching role
-  private checkAuthorization(user: User, allowedRoles: string[]): boolean {
+  isAdmin(user: User): boolean {
     if (!user) {
       return false;
+    } if (user.isAdmin) {
+      return true;
     }
-    for (const role of allowedRoles) {
-      if (user.role[role]) {
-        return true;
-      }
+    return false;
+  }
+
+  isOrgniser(user: User): boolean {
+    if (!user) {
+      return false;
+    } if (user.isOrganiser) {
+      return true;
+    }
+    return false;
+  }
+
+  isReferee(user: User): boolean {
+    if (!user) {
+      return false;
+    } if (!user.isAdmin || !user.isOrganiser) {
+      return true;
     }
     return false;
   }
